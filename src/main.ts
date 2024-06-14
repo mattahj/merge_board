@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import { MergeBoard } from './Components/MergeBoard';
+import { MergeBoardVisualization } from './Components/MergeBoardVisualization';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const reactRoot = createRoot(rootElement);
-    reactRoot.render(MergeBoard());
+    reactRoot.render(MergeBoardVisualization());
 }
