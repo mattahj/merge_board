@@ -1,0 +1,21 @@
+{
+  "name": "merge-board",
+  "version": "1.0.0",
+  "description": "merge board visualisation and editor",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build --no-cache"
+  },
+  "author": "matyt@mattahj.co.uk",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/parcel-env": "^0.0.6",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "parcel": "^2.12.0",
+    "process": "^0.11.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
