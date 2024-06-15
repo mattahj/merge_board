@@ -17,7 +17,7 @@ export interface MergeBoardInitAction {
 
 export interface MergeBoardEditItemAction {
     type: MergeBoardActionType.EditItem;
-    itemId: number;
+    itemIndex: number;
     itemType?: string;
     chainId?: string;
     visibility?: Visibility;
@@ -27,13 +27,13 @@ export interface MergeBoardEditItemAction {
 
 export interface MergeBoardMoveItemAction {
     type: MergeBoardActionType.MoveItem;
-    itemId: number;
+    itemIndex: number;
     destinationIndex: number;
 }
 
 export interface MergeBoardRemoveItemAction {
     type: MergeBoardActionType.RemoveItem;
-    itemId: number;
+    itemIndex: number;
 }
 
 export interface MergeBoardAddItemAction {
@@ -49,9 +49,11 @@ export type MergeBoardAction =
     | MergeBoardRemoveItemAction
     | MergeBoardAddItemAction;
 
-function omitActionType(action: MergeBoardAction) {
+function omitActionTypeAndIndex(action: MergeBoardAction) {
     return Object.fromEntries(
-        Object.entries(action).filter(([key, _]) => key != "type")
+        Object.entries(action).filter(
+            ([key, _]) => key != "type" && key !== "itemIndex"
+        )
     );
 }
 
@@ -66,33 +68,28 @@ export function mergeBoardReducer(
         case MergeBoardActionType.EditItem: {
             return {
                 ...boardState,
-                items: boardState.items.map((item) =>
-                    item?.itemId === action.itemId
-                        ? { ...item, ...omitActionType(action) }
-                        : item
-                ),
+                items: boardState.items.map((item, index) => {
+                    return index === action.itemIndex
+                        ? { ...item, ...omitActionTypeAndIndex(action) }
+                        : item;
+                }),
             };
         }
         case MergeBoardActionType.MoveItem: {
-            const itemIndexToMove = boardState.items.findIndex(
-                (item) => item?.itemId === action.itemId
-            );
             let items = boardState.items;
 
-            if (itemIndexToMove !== -1) {
-                const itemToMove = boardState.items[itemIndexToMove];
-                const itemToSwap = boardState.items[action.destinationIndex];
-                // We don't just swap in place here because React wants a new array
-                // object so it can diff with the previous state easily
-                items = items.map((item, index) => {
-                    if (index === itemIndexToMove) {
-                        return itemToSwap;
-                    } else if (index === action.destinationIndex) {
-                        return itemToMove;
-                    }
-                    return item;
-                });
-            }
+            const itemToMove = boardState.items[action.itemIndex];
+            const itemToSwap = boardState.items[action.destinationIndex];
+            // We don't just swap in place here because React wants a new array
+            // object so it can diff with the previous state easily
+            items = items.map((item, index) => {
+                if (index === action.itemIndex) {
+                    return itemToSwap;
+                } else if (index === action.destinationIndex) {
+                    return itemToMove;
+                }
+                return item;
+            });
 
             return {
                 ...boardState,
@@ -102,8 +99,8 @@ export function mergeBoardReducer(
         case MergeBoardActionType.RemoveItem: {
             return {
                 ...boardState,
-                items: boardState.items.map((item) =>
-                    item?.itemId === action.itemId ? null : item
+                items: boardState.items.map((item, index) =>
+                    index === action.itemIndex ? null : item
                 ),
             };
         }

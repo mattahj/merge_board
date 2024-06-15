@@ -101,14 +101,15 @@ describe("Merge board reducer", () => {
 
         it("should allow editing the item type", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[0] as Item;
+            const indexToEdit = 0;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredType = "MaintenanceTools_10";
             desiredItemState.itemType = desiredType;
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     itemType: desiredType,
                 })
             ).toStrictEqual(desiredState);
@@ -116,14 +117,15 @@ describe("Merge board reducer", () => {
 
         it("should allow editing the chain ID", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[1] as Item;
+            const indexToEdit = 1;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredChainId = "BroomCabinet";
             desiredItemState.chainId = desiredChainId;
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     chainId: desiredChainId,
                 })
             ).toStrictEqual(desiredState);
@@ -131,14 +133,15 @@ describe("Merge board reducer", () => {
 
         it("should allow editing the visibility", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[2] as Item;
+            const indexToEdit = 2;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredVisibility = Visibility.Hidden;
             desiredItemState.visibility = desiredVisibility;
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     visibility: desiredVisibility,
                 })
             ).toStrictEqual(desiredState);
@@ -146,14 +149,15 @@ describe("Merge board reducer", () => {
 
         it("should allow editing the item level", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[0] as Item;
+            const indexToEdit = 0;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredLevel = 999999;
             desiredItemState.itemLevel = desiredLevel;
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     itemLevel: desiredLevel,
                 })
             ).toStrictEqual(desiredState);
@@ -161,14 +165,15 @@ describe("Merge board reducer", () => {
 
         it("should allow editing the bubble state", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[3] as Item;
+            const indexToEdit = 3;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredBubbleState = true;
             desiredItemState.isInsideBubble = desiredBubbleState;
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     isInsideBubble: desiredBubbleState,
                 })
             ).toStrictEqual(desiredState);
@@ -176,7 +181,8 @@ describe("Merge board reducer", () => {
 
         it("should allow editing multiple properties at once", () => {
             const desiredState = getInitialBoardState();
-            const desiredItemState = desiredState.items[3] as Item;
+            const indexToEdit = 3;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
             desiredItemState.itemType = "Energy_05";
             desiredItemState.chainId = "Energy";
             desiredItemState.visibility = Visibility.Hidden;
@@ -186,7 +192,7 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
-                    itemId: desiredItemState.itemId,
+                    itemIndex: indexToEdit,
                     itemType: desiredItemState.itemType,
                     chainId: desiredItemState.chainId,
                     visibility: desiredItemState.visibility,
@@ -217,7 +223,7 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.MoveItem,
-                    itemId: itemToMove.itemId,
+                    itemIndex: sourceIndex,
                     destinationIndex: destIndex,
                 })
             ).toStrictEqual(desiredState);
@@ -236,7 +242,7 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.MoveItem,
-                    itemId: itemToMove.itemId,
+                    itemIndex: sourceIndex,
                     destinationIndex: destIndex,
                 })
             ).toStrictEqual(desiredState);
@@ -259,7 +265,7 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.RemoveItem,
-                    itemId: removedItem.itemId,
+                    itemIndex: indexToRemove,
                 })
             ).toStrictEqual(desiredState);
         });
