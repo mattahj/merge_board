@@ -2,10 +2,9 @@ import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "Components/App";
 
-import initialDataUrl from "url:../static/assigment.json";
-
 async function main() {
     try {
+        const initialDataUrl = "public/assigment.json";
         const initialDataResponse = await fetch(initialDataUrl);
         const initialData = await initialDataResponse.json();
 
