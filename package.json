@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "merge board visualisation and editor",
   "source": "src/index.html",
+  "staticFiles": {
+    "staticPath": "public",
+    "staticOutPath": "public"
+  },
+  "parcelIgnore": [
+    "public\/*.*"
+  ],
   "scripts": {
     "start": "parcel --no-cache",
     "build": "parcel build --no-cache",
@@ -23,6 +30,8 @@
     "@types/react-dom": "^18.3.0",
     "jest": "^29.7.0",
     "parcel": "^2.12.0",
+    "parcel-reporter-static-files-copy": "^1.5.3",
+    "parcel-resolver-ignore": "^2.2.0",
     "process": "^0.11.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
