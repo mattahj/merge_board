@@ -4,6 +4,8 @@ export enum MergeBoardActionType {
     Init = "init",
     EditItem = "edit_item",
     MoveItem = "move_item",
+    RemoveItem = "remove_item",
+    AddItem = "add_item",
 }
 
 export type MergeBoardInitAction = {
@@ -23,14 +25,31 @@ export type MergeBoardEditItemAction = {
 
 export type MergeBoardMoveItemAction = {
     type: MergeBoardActionType.MoveItem;
-    itemID: number;
+    itemId: number;
     destinationIndex: number;
+};
+
+export type MergeBoardRemoveItemAction = {
+    type: MergeBoardActionType.RemoveItem;
+    itemId: number;
+};
+
+export type MergeBoardAddItemAction = {
+    type: MergeBoardActionType.AddItem;
+    destinationIndex: number;
+    itemType: string;
+    chainId: string;
+    visibility: Visibility;
+    itemLevel: number;
+    isInsideBubble: boolean;
 };
 
 export type MergeBoardAction =
     | MergeBoardInitAction
     | MergeBoardEditItemAction
-    | MergeBoardMoveItemAction;
+    | MergeBoardMoveItemAction
+    | MergeBoardRemoveItemAction
+    | MergeBoardAddItemAction;
 
 function omitActionType(action: MergeBoardAction) {
     return Object.fromEntries(
@@ -58,7 +77,7 @@ export function mergeBoardReducer(
         }
         case MergeBoardActionType.MoveItem: {
             const itemIndexToMove = boardState.items.findIndex(
-                (item) => item?.itemId === action.itemID
+                (item) => item?.itemId === action.itemId
             );
             let items = boardState.items;
 
@@ -80,6 +99,14 @@ export function mergeBoardReducer(
             return {
                 ...boardState,
                 items,
+            };
+        }
+        case MergeBoardActionType.RemoveItem: {
+            return {
+                ...boardState,
+                items: boardState.items.map((item) =>
+                    item?.itemId === action.itemId ? null : item
+                ),
             };
         }
     }
