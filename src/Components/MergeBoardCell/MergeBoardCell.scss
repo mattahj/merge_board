@@ -1,8 +1,5 @@
 .merge-board-cell {
-    background: green;
     aspect-ratio: 1;
-    border: 1px solid transparent;
-    overflow: hidden;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -12,19 +9,28 @@
 
     &:hover {
         cursor: pointer;
-        border: 1px solid rgba(0, 0, 255, 0.6);
-    }
-
-    &--selected, &--selected:hover {
-        border: 1px solid blue;
     }
 
     &--drop-target {
-        border: 1px solid red;
+        // TODO: better drag indicator. border messes up layout
     }
 
-    &--dragging {
-        opacity: 0.3;
+    &:before {
+        content: "";
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: 200% 100%;
+        background-repeat: no-repeat;
+        background-position: 0% 0%;
+        background-image: url('public/images/BoardBackground.webp');
+        z-index: -1;
+    }
+
+    &--odd:before {
+        background-position: 100% 0%;
     }
 
     &--bubble:after {
@@ -37,7 +43,28 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        background-image: url('public/Bubble.webp');
+        background-image: url('public/images/Bubble.webp');
+        z-index: 2;
     }
 
+    &--dragging {
+        opacity: 0.3;
+
+        &:before, &:after {
+            opacity: 0.3;
+        }
+    }
+
+    &__selection-indicator {
+        width: 110%;
+        height: 110%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        border: 4px solid #FFF;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
 }

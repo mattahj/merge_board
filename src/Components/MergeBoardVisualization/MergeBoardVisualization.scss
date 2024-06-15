@@ -1,5 +1,11 @@
 .merge-board {
     display: grid;
     align-content: flex-start;
-    grid-gap: 0.1em;
+    overflow: hidden;
+    position: relative;
+    
+    // Generated from https://css-generators.com/custom-corners/
+    --mask: radial-gradient(4px at 4px 4px,#0000 98%,#000) -4px -4px;
+    -webkit-mask: var(--mask);
+            mask: var(--mask);
 }
