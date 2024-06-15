@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "esModuleInterop": true,
+        "paths": {
+            "State/*": ["./src/State/*"],
+            "Components/*": ["./src/Components/*"]
+        }
+    }
+}
