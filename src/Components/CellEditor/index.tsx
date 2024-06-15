@@ -32,6 +32,7 @@ export function CellEditor() {
             <div>Item ID: {item?.itemId}</div>
             <div>Item Type: {item?.itemType}</div>
             <div>Item Level: {item?.itemLevel}</div>
+            <div>Move items by dragging them to a new position</div>
         </div>
     );
 }
