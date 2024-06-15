@@ -5,6 +5,7 @@ import { Item } from "State/Types";
 import "./MergeBoardCell.scss";
 import {
     MergeBoardInspectorActionType,
+    MergeBoardInspectorContext,
     MergeBoardInspectorDispatch,
 } from "State/MergeBoardInspectorReducer";
 import {
@@ -22,6 +23,13 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
     if (inspectorDispatch === null) {
         throw new Error(
             "MergeBoardCell must be used with MergeBoardInspectorDispatch.Provider"
+        );
+    }
+
+    const inspector = useContext(MergeBoardInspectorContext);
+    if (inspector === null) {
+        throw new Error(
+            "MergeBoardCell must be used with MergeBoardInspectorContext.Provider"
         );
     }
 
@@ -66,6 +74,10 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 10
             );
             if (!Number.isNaN(droppedItemIndex)) {
+                inspectorDispatch({
+                    type: MergeBoardInspectorActionType.SetCell,
+                    cellIndex,
+                });
                 mergeBoardDispatch({
                     type: MergeBoardActionType.MoveItem,
                     itemIndex: droppedItemIndex,
@@ -73,7 +85,7 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 });
             }
         },
-        [mergeBoardDispatch, cellIndex]
+        [mergeBoardDispatch, inspectorDispatch, cellIndex]
     );
 
     const handleDragOver = useCallback(
@@ -95,11 +107,15 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
         setDragging(false);
     }, [setDragging]);
 
+    const isSelected = cellIndex === inspector.selectedCellIndex;
+
     return (
         <div
             className={`merge-board-cell ${
                 draggedOver ? "merge-board-cell--drop-target" : ""
-            } ${dragging ? "merge-board-cell--dragging" : ""}`}
+            } ${dragging ? "merge-board-cell--dragging" : ""}  ${
+                isSelected ? "merge-board-cell--selected" : ""
+            }`}
             onClick={handleClick}
             onDragStart={handleDrag}
             onDrop={handleDrop}

@@ -6,6 +6,10 @@
 
     &:hover {
         cursor: pointer;
+        border: 1px solid rgba(0, 0, 255, 0.6);
+    }
+
+    &--selected, &--selected:hover {
         border: 1px solid blue;
     }
 
