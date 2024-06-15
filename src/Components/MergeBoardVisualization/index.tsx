@@ -1,8 +1,8 @@
 import React from "react";
 
-import './MergeBoardVisualization.scss';
+import "./MergeBoardVisualization.scss";
 
-import initialData from 'url:../../../static/assigment.json';
+import initialData from "url:../../../static/assigment.json";
 
 console.log(initialData);
 
