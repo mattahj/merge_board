@@ -22,14 +22,14 @@ export function MergeBoardVisualization() {
                 gridTemplateRows: `repeat(${mergeBoardState.height}, 1fr)`,
             }}
         >
-            {mergeBoardState.items.map((item) => {
-                const instanceId = useId();
-                return item ? (
+            {mergeBoardState.items.map((item, cellIndex) => {
+                return (
                     <MergeBoardCell
                         item={item}
-                        key={`${instanceId}_${item.itemId}`}
+                        cellIndex={cellIndex}
+                        key={`${cellIndex}_${item ? item.itemId : "null"}`}
                     />
-                ) : null;
+                );
             })}
         </div>
     );
