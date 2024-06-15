@@ -126,7 +126,15 @@ export const MergeBoardContext = createContext<MergeBoard | null>(null);
 export const MergeBoardDispatch =
     createContext<React.Dispatch<MergeBoardAction> | null>(null);
 
-export function MergeBoardProvider({ initialData, children }) {
+interface MergeBoardProviderProps {
+    initialData: MergeBoard;
+    children: React.ReactNode;
+}
+
+export function MergeBoardProvider({
+    initialData,
+    children,
+}: MergeBoardProviderProps) {
     const [mergeBoardState, dispatchMergeBoardAction] = useReducer(
         mergeBoardReducer,
         initialData

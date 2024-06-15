@@ -5,7 +5,7 @@ import {
 } from "./MergeBoardReducer";
 import { Item, MergeBoard, Visibility } from "./Types";
 
-const getInitialBoardState = (): MergeBoard => ({
+export const getInitialBoardState = (): MergeBoard => ({
     boardId: "edit_tests_board",
     height: 3,
     width: 3,
