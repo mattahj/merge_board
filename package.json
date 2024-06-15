@@ -4,7 +4,7 @@
   "description": "merge board visualisation and editor",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel --no-cache",
     "build": "parcel build --no-cache",
     "test": "jest"
   },
