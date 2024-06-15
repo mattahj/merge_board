@@ -1,8 +1,9 @@
-import { MergeBoard } from "./Types";
+import { MergeBoard, Visibility } from "./Types";
 
 export enum MergeBoardActionType {
     Init = 'init',
-    Edit = 'edit',
+    EditItem = 'edit_item',
+    MoveItem = 'move_item'
 }
 
 export type MergeBoardInitAction = {
@@ -10,19 +11,34 @@ export type MergeBoardInitAction = {
     initialState: MergeBoard;
 }
 
-export type MergeBoardEditAction = {
-    type: MergeBoardActionType.Edit;
-    cellIndex: number;
+export type MergeBoardEditItemAction = {
+    type: MergeBoardActionType.EditItem;
+    itemID: number;
+    itemType?: string;
+    chainId?: string;
+    visibility?: Visibility;
+    itemLevel?: number;
+    isInsideBubble?: boolean;
 }
 
-export type MergeBoardAction = MergeBoardInitAction | MergeBoardEditAction;
+export type MergeBoardMoveItemAction = {
+    type: MergeBoardActionType.MoveItem;
+    itemID: number;
+}
+
+export type MergeBoardAction = MergeBoardInitAction | MergeBoardEditItemAction | MergeBoardMoveItemAction;
 
 export function mergeBoardReducer(boardState: MergeBoard, action: MergeBoardAction) {
     switch (action.type) {
         case MergeBoardActionType.Init: {
             return action.initialState;
         }
-        case MergeBoardActionType.Edit: {
+        case MergeBoardActionType.EditItem: {
+            return {
+                ...boardState,
+            }
+        }
+        case MergeBoardActionType.MoveItem: {
             return {
                 ...boardState,
             }
