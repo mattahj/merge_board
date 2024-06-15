@@ -10,12 +10,12 @@ export enum MergeBoardActionType {
     AddItem = "add_item",
 }
 
-export type MergeBoardInitAction = {
+export interface MergeBoardInitAction {
     type: MergeBoardActionType.Init;
     initialState: MergeBoard;
-};
+}
 
-export type MergeBoardEditItemAction = {
+export interface MergeBoardEditItemAction {
     type: MergeBoardActionType.EditItem;
     itemId: number;
     itemType?: string;
@@ -23,24 +23,24 @@ export type MergeBoardEditItemAction = {
     visibility?: Visibility;
     itemLevel?: number;
     isInsideBubble?: boolean;
-};
+}
 
-export type MergeBoardMoveItemAction = {
+export interface MergeBoardMoveItemAction {
     type: MergeBoardActionType.MoveItem;
     itemId: number;
     destinationIndex: number;
-};
+}
 
-export type MergeBoardRemoveItemAction = {
+export interface MergeBoardRemoveItemAction {
     type: MergeBoardActionType.RemoveItem;
     itemId: number;
-};
+}
 
-export type MergeBoardAddItemAction = {
+export interface MergeBoardAddItemAction {
     type: MergeBoardActionType.AddItem;
     destinationIndex: number;
     item: Item;
-};
+}
 
 export type MergeBoardAction =
     | MergeBoardInitAction
