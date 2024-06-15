@@ -1,6 +1,12 @@
+body {
+    margin: 0;
+}
+
 .app {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 24px;
+    flex-wrap: wrap;
+    padding: 12px;
 }
