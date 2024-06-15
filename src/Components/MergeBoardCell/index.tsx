@@ -12,6 +12,7 @@ import {
     MergeBoardActionType,
     MergeBoardDispatch,
 } from "State/MergeBoardReducer";
+import { classList } from "Utils/classList";
 
 interface Props {
     item: Item | null;
@@ -108,20 +109,28 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
     }, [setDragging]);
 
     const isSelected = cellIndex === inspector.selectedCellIndex;
+    const styles = item
+        ? {
+              backgroundImage: `url(public/images/${item.itemType}.webp)`,
+          }
+        : {};
+
+    const conditionalClasses = classList({
+        "merge-board-cell--drop-target": draggedOver,
+        "merge-board-cell--dragging": dragging,
+        "merge-board-cell--selected": isSelected,
+    });
 
     return (
         <div
-            className={`merge-board-cell ${
-                draggedOver ? "merge-board-cell--drop-target" : ""
-            } ${dragging ? "merge-board-cell--dragging" : ""}  ${
-                isSelected ? "merge-board-cell--selected" : ""
-            }`}
+            className={`merge-board-cell ${conditionalClasses}`}
             onClick={handleClick}
             onDragStart={handleDrag}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDragEnd={handleDragEnd}
+            style={styles}
             draggable
         >
             {item ? item.itemId : "empty"}
