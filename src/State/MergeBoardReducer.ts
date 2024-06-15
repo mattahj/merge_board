@@ -24,6 +24,7 @@ export type MergeBoardEditItemAction = {
 export type MergeBoardMoveItemAction = {
     type: MergeBoardActionType.MoveItem;
     itemID: number;
+    destinationIndex: number;
 }
 
 export type MergeBoardAction = MergeBoardInitAction | MergeBoardEditItemAction | MergeBoardMoveItemAction;
