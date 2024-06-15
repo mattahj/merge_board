@@ -1,4 +1,4 @@
-import { MergeBoard, Visibility } from "./Types";
+import { Item, MergeBoard, Visibility } from "./Types";
 
 export enum MergeBoardActionType {
     Init = "init",
@@ -37,11 +37,7 @@ export type MergeBoardRemoveItemAction = {
 export type MergeBoardAddItemAction = {
     type: MergeBoardActionType.AddItem;
     destinationIndex: number;
-    itemType: string;
-    chainId: string;
-    visibility: Visibility;
-    itemLevel: number;
-    isInsideBubble: boolean;
+    item: Item;
 };
 
 export type MergeBoardAction =
@@ -106,6 +102,18 @@ export function mergeBoardReducer(
                 ...boardState,
                 items: boardState.items.map((item) =>
                     item?.itemId === action.itemId ? null : item
+                ),
+            };
+        }
+        case MergeBoardActionType.AddItem: {
+            return {
+                ...boardState,
+                items: boardState.items.map((item, index) =>
+                    index === action.destinationIndex
+                        ? {
+                              ...action.item,
+                          }
+                        : item
                 ),
             };
         }

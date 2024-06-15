@@ -291,7 +291,7 @@ describe("Merge board reducer", () => {
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.AddItem,
                     destinationIndex: indexToAddAt,
-                    ...itemToAdd,
+                    item: { ...itemToAdd },
                 })
             ).toStrictEqual(desiredState);
         });
