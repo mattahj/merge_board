@@ -5,6 +5,54 @@ import {
 } from "./MergeBoardReducer";
 import { Item, MergeBoard, Visibility } from "./Types";
 
+const getInitialBoardState = (): MergeBoard => ({
+    boardId: "edit_tests_board",
+    height: 3,
+    width: 3,
+    items: [
+        {
+            itemId: 1173,
+            itemType: "BroomCabinet_04",
+            chainId: "BroomCabinet",
+            pausedUntil: new Date("2024-08-29T12:31:20.783Z"),
+            createdAt: new Date("2023-12-07T09:48:41.2390000Z"),
+            visibility: Visibility.Visible,
+            itemLevel: 4,
+            isInsideBubble: false,
+        },
+        {
+            itemId: 607,
+            itemType: "Vase_08",
+            chainId: "Vase",
+            pausedUntil: null,
+            createdAt: new Date("2023-12-12T07:20:35.3010000Z"),
+            visibility: Visibility.Visible,
+            itemLevel: 8,
+            isInsideBubble: false,
+        },
+        {
+            itemId: 1354,
+            itemType: "PlantedBush_05",
+            chainId: "PlantedBush",
+            pausedUntil: null,
+            createdAt: new Date("2023-12-17T06:56:57.5560000Z"),
+            visibility: Visibility.Visible,
+            itemLevel: 5,
+            isInsideBubble: false,
+        },
+        {
+            itemId: 7080,
+            itemType: "LevelDownBoosterScissors_01",
+            chainId: "LevelDownBoosterScissors",
+            pausedUntil: null,
+            createdAt: new Date("2023-12-12T18:32:55.9850000Z"),
+            visibility: Visibility.Visible,
+            itemLevel: 1,
+            isInsideBubble: false,
+        },
+    ],
+});
+
 describe("Merge board reducer", () => {
     describe("init action", () => {
         it("should overwrite the whole state with what was passed in from the action", () => {
@@ -44,55 +92,7 @@ describe("Merge board reducer", () => {
         });
     });
 
-    const getInitialBoardState = (): MergeBoard => ({
-        boardId: "edit_tests_board",
-        height: 3,
-        width: 3,
-        items: [
-            {
-                itemId: 1173,
-                itemType: "BroomCabinet_04",
-                chainId: "BroomCabinet",
-                pausedUntil: new Date("2024-08-29T12:31:20.783Z"),
-                createdAt: new Date("2023-12-07T09:48:41.2390000Z"),
-                visibility: Visibility.Visible,
-                itemLevel: 4,
-                isInsideBubble: false,
-            },
-            {
-                itemId: 607,
-                itemType: "Vase_08",
-                chainId: "Vase",
-                pausedUntil: null,
-                createdAt: new Date("2023-12-12T07:20:35.3010000Z"),
-                visibility: Visibility.Visible,
-                itemLevel: 8,
-                isInsideBubble: false,
-            },
-            {
-                itemId: 1354,
-                itemType: "PlantedBush_05",
-                chainId: "PlantedBush",
-                pausedUntil: null,
-                createdAt: new Date("2023-12-17T06:56:57.5560000Z"),
-                visibility: Visibility.Visible,
-                itemLevel: 5,
-                isInsideBubble: false,
-            },
-            {
-                itemId: 7080,
-                itemType: "LevelDownBoosterScissors_01",
-                chainId: "LevelDownBoosterScissors",
-                pausedUntil: null,
-                createdAt: new Date("2023-12-12T18:32:55.9850000Z"),
-                visibility: Visibility.Visible,
-                itemLevel: 1,
-                isInsideBubble: false,
-            },
-        ],
-    });
-
-    describe("edit action", () => {
+    describe("edit item action", () => {
         let initialBoardState: MergeBoard;
 
         beforeEach(() => {
@@ -197,7 +197,7 @@ describe("Merge board reducer", () => {
         });
     });
 
-    describe("move action", () => {
+    describe("move item action", () => {
         let initialBoardState: MergeBoard;
 
         beforeEach(() => {
@@ -217,7 +217,7 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.MoveItem,
-                    itemID: itemToMove.itemId,
+                    itemId: itemToMove.itemId,
                     destinationIndex: destIndex,
                 })
             ).toStrictEqual(desiredState);
@@ -236,8 +236,30 @@ describe("Merge board reducer", () => {
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.MoveItem,
-                    itemID: itemToMove.itemId,
+                    itemId: itemToMove.itemId,
                     destinationIndex: destIndex,
+                })
+            ).toStrictEqual(desiredState);
+        });
+    });
+
+    describe("remove item action", () => {
+        let initialBoardState: MergeBoard;
+
+        beforeEach(() => {
+            initialBoardState = getInitialBoardState();
+        });
+
+        it("should set the target cell to null", () => {
+            const desiredState = getInitialBoardState();
+            const indexToRemove = 2;
+            const removedItem = desiredState.items[indexToRemove] as Item;
+            desiredState.items[indexToRemove] = null;
+
+            expect(
+                mergeBoardReducer(initialBoardState, {
+                    type: MergeBoardActionType.RemoveItem,
+                    itemId: removedItem.itemId,
                 })
             ).toStrictEqual(desiredState);
         });
