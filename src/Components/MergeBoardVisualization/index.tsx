@@ -19,7 +19,7 @@ export function MergeBoardVisualization() {
             className="merge-board"
             style={{
                 gridTemplateColumns: `repeat(${mergeBoardState.width}, 1fr)`,
-                gridTemplateRows: `repeat(${mergeBoardState.height}, 1fr)`,
+                gridTemplateRows: `repeat(${mergeBoardState.height}, auto)`,
             }}
         >
             {mergeBoardState.items.map((item, cellIndex) => {
