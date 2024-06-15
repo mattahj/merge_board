@@ -264,4 +264,36 @@ describe("Merge board reducer", () => {
             ).toStrictEqual(desiredState);
         });
     });
+
+    describe("add item action", () => {
+        let initialBoardState: MergeBoard;
+
+        beforeEach(() => {
+            initialBoardState = getInitialBoardState();
+        });
+
+        it("should replace whatever is in the cell with the new item", () => {
+            const desiredState = getInitialBoardState();
+            const itemToAdd: Item = {
+                itemId: 129,
+                itemType: "Flowerpot_10",
+                chainId: "Flowerpot",
+                pausedUntil: null,
+                createdAt: new Date("1970-01-01T00:00:00.0000000Z"),
+                visibility: Visibility.Hidden,
+                itemLevel: 10,
+                isInsideBubble: false,
+            };
+            const indexToAddAt = 2;
+            desiredState.items[indexToAddAt] = itemToAdd;
+
+            expect(
+                mergeBoardReducer(initialBoardState, {
+                    type: MergeBoardActionType.AddItem,
+                    destinationIndex: indexToAddAt,
+                    ...itemToAdd,
+                })
+            ).toStrictEqual(desiredState);
+        });
+    });
 });
