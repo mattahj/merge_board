@@ -104,7 +104,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         itemType: desiredType
                     }
                 )
@@ -122,7 +122,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         chainId: desiredChainId
                     }
                 )
@@ -140,7 +140,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         visibility: desiredVisibility
                     }
                 )
@@ -158,7 +158,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         itemLevel: desiredLevel
                     }
                 )
@@ -176,7 +176,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         isInsideBubble: desiredBubbleState
                     }
                 )
@@ -197,7 +197,7 @@ describe("Merge board reducer", () => {
                     initialBoardState,
                     {
                         type: MergeBoardActionType.EditItem,
-                        itemID: desiredItemState.itemId,
+                        itemId: desiredItemState.itemId,
                         itemType: desiredItemState.itemType,
                         chainId: desiredItemState.chainId,
                         visibility: desiredItemState.visibility,

@@ -13,7 +13,7 @@ export type MergeBoardInitAction = {
 
 export type MergeBoardEditItemAction = {
     type: MergeBoardActionType.EditItem;
-    itemID: number;
+    itemId: number;
     itemType?: string;
     chainId?: string;
     visibility?: Visibility;
@@ -28,6 +28,12 @@ export type MergeBoardMoveItemAction = {
 
 export type MergeBoardAction = MergeBoardInitAction | MergeBoardEditItemAction | MergeBoardMoveItemAction;
 
+function omitActionType(action: MergeBoardAction) {
+    return Object.fromEntries(
+        Object.entries(action).filter(([key, _]) => key != 'type')
+    );
+}
+
 export function mergeBoardReducer(boardState: MergeBoard, action: MergeBoardAction) {
     switch (action.type) {
         case MergeBoardActionType.Init: {
@@ -36,6 +42,11 @@ export function mergeBoardReducer(boardState: MergeBoard, action: MergeBoardActi
         case MergeBoardActionType.EditItem: {
             return {
                 ...boardState,
+                items: boardState.items.map(item =>
+                    item?.itemId === action.itemId
+                        ? { ...item, ...omitActionType(action) }
+                        : item
+                )
             }
         }
         case MergeBoardActionType.MoveItem: {
