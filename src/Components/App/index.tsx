@@ -4,13 +4,17 @@ import { MergeBoardVisualization } from "Components/MergeBoardVisualization";
 import { CellEditor } from "Components/CellEditor";
 import { MergeBoard } from "State/Types";
 import { MergeBoardProvider } from "State/MergeBoardReducer";
-
-import "./App.scss";
 import {
     MergeBoardInspectorActionType,
     MergeBoardInspectorDispatch,
     MergeBoardInspectorProvider,
 } from "State/MergeBoardInspectorReducer";
+
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "./App.scss";
 
 interface Props {
     initialData: MergeBoard;
