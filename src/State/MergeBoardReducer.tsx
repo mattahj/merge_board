@@ -1,4 +1,6 @@
-import { Item, MergeBoard, Visibility } from "./Types";
+import React from "react";
+import { createContext, useReducer } from "react";
+import { Item, MergeBoard, Visibility } from "State/Types";
 
 export enum MergeBoardActionType {
     Init = "init",
@@ -118,4 +120,23 @@ export function mergeBoardReducer(
             };
         }
     }
+}
+
+export const MergeBoardContext = createContext<MergeBoard | null>(null);
+export const MergeBoardDispatch =
+    createContext<React.Dispatch<MergeBoardAction> | null>(null);
+
+export function MergeBoardProvider({ initialData, children }) {
+    const [mergeBoardState, dispatchMergeBoardAction] = useReducer(
+        mergeBoardReducer,
+        initialData
+    );
+
+    return (
+        <MergeBoardContext.Provider value={mergeBoardState}>
+            <MergeBoardDispatch.Provider value={dispatchMergeBoardAction}>
+                {children}
+            </MergeBoardDispatch.Provider>
+        </MergeBoardContext.Provider>
+    );
 }
