@@ -6,8 +6,8 @@ import initialDataUrl from "url:../static/assigment.json";
 
 async function main() {
     try {
-        const initialDataRequest = await fetch(initialDataUrl);
-        const initialData = await initialDataRequest.json();
+        const initialDataResponse = await fetch(initialDataUrl);
+        const initialData = await initialDataResponse.json();
 
         const rootElement = document.getElementById("root");
         if (rootElement) {
