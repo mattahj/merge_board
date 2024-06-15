@@ -119,7 +119,6 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
     const conditionalClasses = classList({
         "merge-board-cell--drop-target": draggedOver,
         "merge-board-cell--dragging": dragging,
-        "merge-board-cell--bubble": item?.isInsideBubble,
         "merge-board-cell--odd": cellIndex % 2 !== 0,
     });
 
@@ -135,6 +134,9 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
             style={styles}
             draggable
         >
+            {item?.isInsideBubble ? (
+                <div className="merge-board-cell__bubble" />
+            ) : null}
             {isSelected ? (
                 <div className="merge-board-cell__selection-indicator" />
             ) : null}
