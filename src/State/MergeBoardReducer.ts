@@ -51,9 +51,28 @@ export function mergeBoardReducer(boardState: MergeBoard, action: MergeBoardActi
             }
         }
         case MergeBoardActionType.MoveItem: {
+            const itemIndexToMove = boardState.items.findIndex((item) => item?.itemId === action.itemID);
+            let items = boardState.items;
+
+            if (itemIndexToMove !== -1) {
+                const itemToMove = boardState.items[itemIndexToMove];
+                const itemToSwap = boardState.items[action.destinationIndex];
+                // We don't just swap in place here because React wants a new array
+                // object so it can diff with the previous state easily
+                items = items.map((item, index) => {
+                    if (index === itemIndexToMove) {
+                        return itemToSwap;
+                    } else if (index === action.destinationIndex) {
+                        return itemToMove;
+                    }
+                    return item;
+                });
+            }
+
             return {
                 ...boardState,
-            }
+                items,
+            };
         }
     }
-}
+} 
