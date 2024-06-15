@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useState } from "react";
 
 import { Item } from "State/Types";
 
-import "./MergeBoardCell.scss";
 import {
     MergeBoardInspectorActionType,
     MergeBoardInspectorContext,
@@ -13,6 +12,8 @@ import {
     MergeBoardDispatch,
 } from "State/MergeBoardReducer";
 import { classList } from "Utils/classList";
+
+import "./MergeBoardCell.scss";
 
 interface Props {
     item: Item | null;
