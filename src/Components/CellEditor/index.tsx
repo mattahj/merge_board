@@ -73,7 +73,11 @@ export function CellEditor() {
                         Click and drag to move items
                     </Alert>
                 )}
-                {item && <CellEditForm item={item} />}
+                {item && (
+                    <>
+                        <CellEditForm item={item} />
+                    </>
+                )}
                 {showAddForm && <CellAddForm />}
             </Box>
         </LocalizationProvider>

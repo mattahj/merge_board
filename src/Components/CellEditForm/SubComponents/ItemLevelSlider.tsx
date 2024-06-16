@@ -38,12 +38,17 @@ export function ItemLevelSlider({ item }: ItemLevelSliderProps) {
 
     return (
         <FormControlLabel
-            label="Level"
+            label={`Level ${item.itemLevel}`}
+            labelPlacement="top"
             onChange={handleItemLevelChange}
+            sx={{
+                alignItems: "flex-start",
+                margin: 0,
+            }}
             control={
                 <Slider
                     marks
-                    valueLabelDisplay="on"
+                    valueLabelDisplay="auto"
                     min={mergeBoardState.itemChainLevelBounds[item.chainId].min}
                     max={mergeBoardState.itemChainLevelBounds[item.chainId].max}
                     step={1}

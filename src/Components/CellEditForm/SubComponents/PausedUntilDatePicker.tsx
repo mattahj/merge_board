@@ -37,6 +37,11 @@ export function PausedUntilDatePicker({ item }: PausedUntilDatePickerProps) {
     return (
         <FormControlLabel
             label="Paused Until"
+            labelPlacement="top"
+            sx={{
+                alignItems: "flex-start",
+                margin: 0,
+            }}
             control={
                 <DateTimePicker
                     slotProps={{

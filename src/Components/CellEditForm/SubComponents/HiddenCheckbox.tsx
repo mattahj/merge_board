@@ -35,12 +35,17 @@ export function HiddenCheckbox({ item }: HiddenCheckboxProps) {
     return (
         <FormControlLabel
             label="Hidden"
+            labelPlacement="end"
+            sx={{
+                margin: 0,
+            }}
             control={
                 <Checkbox
                     checked={item.visibility === Visibility.Hidden}
                     onChange={handleVisibilityChange}
                     style={{
                         marginLeft: -12,
+                        marginRight: -6,
                     }}
                 />
             }

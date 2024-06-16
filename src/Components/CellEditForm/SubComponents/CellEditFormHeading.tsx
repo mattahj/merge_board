@@ -10,7 +10,9 @@ export function CellEditFormHeading({ item }: { item: Item }) {
                 itemType={item.itemType}
                 className="cell-editor-heading__item"
             />
-            <h3 style={{ margin: 0 }}>{item.itemType}</h3>
+            <h3 style={{ margin: 0 }}>
+                {item.itemType} (id: {item.itemId})
+            </h3>
         </div>
     );
 }

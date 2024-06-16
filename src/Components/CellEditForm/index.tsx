@@ -57,16 +57,12 @@ export function CellEditForm({ item }: CellEditFormProps) {
                     <CellEditFormHeading item={item} />
                 )}
                 <Divider sx={{ marginY: 1 }} />
-                <FormGroup sx={{ padding: 1 }}>
+                <FormGroup sx={{ padding: 1, gap: 2 }}>
                     <ItemChainSelect item={item} />
-                    {showLevelSlider ? (
-                        <ItemLevelSlider item={item} />
-                    ) : (
-                        <p>Level {item.itemLevel}</p>
-                    )}
+                    {showLevelSlider && <ItemLevelSlider item={item} />}
+                    <PausedUntilDatePicker item={item} />
                     <InBubbleCheckbox item={item} />
                     <HiddenCheckbox item={item} />
-                    <PausedUntilDatePicker item={item} />
                 </FormGroup>
 
                 <Divider sx={{ marginY: 1 }} />

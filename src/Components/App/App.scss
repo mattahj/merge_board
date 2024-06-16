@@ -11,7 +11,7 @@ html, body, #root {
     justify-content: center;
     align-items: flex-start;
     gap: 24px;
-    flex-wrap: wrap;
+    min-width: 1470px;
     padding: 24px;
     height: 100%;
     width: 100%;

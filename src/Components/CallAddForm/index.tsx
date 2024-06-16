@@ -77,11 +77,11 @@ export function CellAddForm() {
             <Box padding={2}>
                 <div className="add-cell-heading">
                     <PostAddIcon
-                        className="add-cell-heading__icon"
                         sx={{
                             width: 48,
                             height: 48,
                         }}
+                        className="add-cell-heading__icon"
                     />
                     <h3 style={{ margin: 0 }}>Add Item</h3>
                 </div>
@@ -91,7 +91,7 @@ export function CellAddForm() {
                     using MergeBoard::availableItemChains and a Select field!
                 </p>
                 <Divider sx={{ marginY: 1 }} />
-                <FormGroup sx={{ padding: 1 }}>
+                <FormGroup sx={{ padding: 1, gap: 2 }}>
                     <div className="add-cell-preview">
                         <ItemIcon
                             itemType={derivedItemType}
@@ -101,11 +101,16 @@ export function CellAddForm() {
                     </div>
                     <FormControlLabel
                         label="Level"
+                        labelPlacement="top"
                         onChange={handlePendingItemLevelChange}
+                        sx={{
+                            alignItems: "flex-start",
+                            margin: 0,
+                        }}
                         control={
                             <Slider
                                 marks
-                                valueLabelDisplay="on"
+                                valueLabelDisplay="auto"
                                 min={1}
                                 max={10}
                                 step={1}

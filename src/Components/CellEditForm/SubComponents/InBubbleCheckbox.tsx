@@ -33,12 +33,17 @@ export function InBubbleCheckbox({ item }: InBubbleCheckboxProps) {
     return (
         <FormControlLabel
             label="In Bubble"
+            labelPlacement="end"
+            sx={{
+                margin: 0,
+            }}
             control={
                 <Checkbox
                     checked={item.isInsideBubble}
                     onChange={handleBubbleChange}
                     style={{
                         marginLeft: -12,
+                        marginRight: -6,
                     }}
                 />
             }
