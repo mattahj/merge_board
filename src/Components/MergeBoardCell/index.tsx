@@ -83,10 +83,12 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
 
     const handleDragOver = useCallback(
         (evt: React.DragEvent<HTMLDivElement>) => {
-            setDraggedOver(true);
+            if (!dragging) {
+                setDraggedOver(true);
+            }
             evt.preventDefault();
         },
-        [setDraggedOver]
+        [setDraggedOver, dragging]
     );
 
     const handleDragLeave = useCallback(

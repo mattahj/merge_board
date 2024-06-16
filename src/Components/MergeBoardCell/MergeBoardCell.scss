@@ -6,13 +6,18 @@
     position: relative;
     width: 64px;
     height: 64px;
+    transition: filter 200ms ease;
 
     &:hover {
         cursor: pointer;
+        filter: brightness(120%);
     }
 
     &--drop-target {
-        // TODO: better drag indicator. border messes up layout
+        filter: brightness(120%);
+        .merge-board-cell__item, .merge-board-cell__bubble {
+            transform: translate(-8px, -8px) scale(1.05);
+        }
     }
 
     &__background {
@@ -49,6 +54,8 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        transition: transform 400ms ease;
+
     }
 
     &__bubble {
