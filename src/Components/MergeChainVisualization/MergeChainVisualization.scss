@@ -1,0 +1,36 @@
+.merge-chain-vis {
+    margin-top: 6px;
+
+    &__item {
+        padding: 3px;
+        border: 1px dashed transparent;
+        width: 48px;
+        height: 48px;
+        
+        &--focused {
+            border: 1px dashed white;
+        }
+    }
+
+    &__arrow {
+        width: 0; 
+        height: 0;
+        $arrow-size: 18px;
+        border-radius: 3px;
+        border-top: $arrow-size solid transparent; 
+        border-bottom: $arrow-size solid transparent;
+        border-left: $arrow-size solid #000;
+    }
+
+    &__title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        &__icon {
+            margin-right: 8px;
+        }
+    }
+
+}
