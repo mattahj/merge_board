@@ -22,6 +22,7 @@ export interface MergeBoardEditItemAction {
     visibility?: Visibility;
     itemLevel?: number;
     isInsideBubble?: boolean;
+    pausedUntil?: string | null;
 }
 
 export interface MergeBoardMoveItemAction {

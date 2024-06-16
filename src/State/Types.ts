@@ -11,8 +11,8 @@ export interface Item {
     itemId: number;
     itemType: string;
     chainId: string;
-    pausedUntil: Date | null;
-    createdAt: Date;
+    pausedUntil: string | null;
+    createdAt: string;
     visibility: Visibility;
     itemLevel: number;
     isInsideBubble: boolean;

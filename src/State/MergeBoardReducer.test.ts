@@ -27,8 +27,8 @@ describe("Merge board reducer", () => {
                         itemId: 1,
                         itemLevel: 1,
                         itemType: "",
-                        createdAt: new Date("2024-08-29T12:31:20.783Z"),
-                        pausedUntil: new Date("2023-12-12T07:20:35.3010000Z"),
+                        createdAt: "2024-08-29T12:31:20.783Z",
+                        pausedUntil: "2023-12-12T07:20:35.3010000Z",
                         visibility: Visibility.Visible,
                     },
                 ],
@@ -120,6 +120,22 @@ describe("Merge board reducer", () => {
                     type: MergeBoardActionType.EditItem,
                     itemIndex: indexToEdit,
                     isInsideBubble: desiredBubbleState,
+                })
+            ).toStrictEqual(desiredState);
+        });
+
+        it("should allow editing paused until", () => {
+            const desiredState = getInitialBoardState();
+            const indexToEdit = 0;
+            const desiredItemState = desiredState.items[indexToEdit] as Item;
+            const pauseTime = null;
+            desiredItemState.pausedUntil = pauseTime;
+
+            expect(
+                mergeBoardReducer(initialBoardState, {
+                    type: MergeBoardActionType.EditItem,
+                    itemIndex: indexToEdit,
+                    pausedUntil: pauseTime,
                 })
             ).toStrictEqual(desiredState);
         });
@@ -233,7 +249,7 @@ describe("Merge board reducer", () => {
                 itemType: "Flowerpot_10",
                 chainId: "Flowerpot",
                 pausedUntil: null,
-                createdAt: new Date("1970-01-01T00:00:00.0000000Z"),
+                createdAt: "1970-01-01T00:00:00.0000000Z",
                 visibility: Visibility.Hidden,
                 itemLevel: 10,
                 isInsideBubble: false,
