@@ -2,6 +2,22 @@
     margin-bottom: 6px;
 }
 
+.cell-editor-heading {
+    displaY: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    &__item {
+        width: 48px;
+        height: 48px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-right: 8px;
+    }
+}
+
 .cell-editor-form-row {
     margin: 0 !important;
 
@@ -9,3 +25,4 @@
         margin-left: 12px;
     }
 }
+
