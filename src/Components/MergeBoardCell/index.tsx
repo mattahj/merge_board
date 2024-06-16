@@ -46,11 +46,15 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 evt.dataTransfer.setData("text/plain", cellIndex.toString());
                 evt.dataTransfer.dropEffect = "move";
                 setDragging(true);
+                inspectorDispatch({
+                    type: MergeBoardInspectorActionType.SetCell,
+                    cellIndex,
+                });
             } else {
                 evt.preventDefault();
             }
         },
-        [cellIndex, item, setDragging]
+        [cellIndex, item, setDragging, inspectorDispatch]
     );
 
     const handleDrop = useCallback(
@@ -60,14 +64,14 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 10
             );
             if (!Number.isNaN(droppedItemIndex)) {
-                inspectorDispatch({
-                    type: MergeBoardInspectorActionType.SetCell,
-                    cellIndex,
-                });
                 mergeBoardDispatch({
                     type: MergeBoardActionType.MoveItem,
                     itemIndex: droppedItemIndex,
                     destinationIndex: cellIndex,
+                });
+                inspectorDispatch({
+                    type: MergeBoardInspectorActionType.SetCell,
+                    cellIndex,
                 });
             }
         },
@@ -118,12 +122,12 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
             style={styles}
             draggable
         >
-            {item?.isInsideBubble ? (
+            {item?.isInsideBubble && (
                 <div className="merge-board-cell__bubble" />
-            ) : null}
-            {isSelected ? (
+            )}
+            {isSelected && (
                 <div className="merge-board-cell__selection-indicator" />
-            ) : null}
+            )}
         </div>
     );
 }
