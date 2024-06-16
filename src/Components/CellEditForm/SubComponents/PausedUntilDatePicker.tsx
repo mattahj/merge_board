@@ -41,7 +41,7 @@ export function PausedUntilDatePicker({ item }: PausedUntilDatePickerProps) {
                 <DateTimePicker
                     slotProps={{
                         actionBar: {
-                            actions: ["clear"],
+                            actions: ["accept", "cancel", "clear"],
                         },
                     }}
                     value={
