@@ -3,7 +3,7 @@ import {
     MergeBoardInspectorActionType,
     mergeBoardInspectorReducer,
 } from "./MergeBoardInspectorReducer";
-import { getInitialBoardState } from "./MergeBoardReducer.test";
+import { getInitialBoardState } from "./TestHelpers";
 import { MergeBoard } from "./Types";
 
 describe("Merge board inspect reducer", () => {

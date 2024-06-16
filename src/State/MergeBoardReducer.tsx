@@ -18,7 +18,6 @@ export interface MergeBoardInitAction {
 export interface MergeBoardEditItemAction {
     type: MergeBoardActionType.EditItem;
     itemIndex: number;
-    itemType?: string;
     chainId?: string;
     visibility?: Visibility;
     itemLevel?: number;
@@ -49,6 +48,13 @@ export type MergeBoardAction =
     | MergeBoardRemoveItemAction
     | MergeBoardAddItemAction;
 
+function deriveItemType(chainID: string, level: number) {
+    if (chainID === "ProducerBooster") {
+        return `ProducerBoosterActivated_${level.toString().padStart(2, "0")}`;
+    }
+    return `${chainID}_${level.toString().padStart(2, "0")}`;
+}
+
 function omitActionTypeAndIndex(action: MergeBoardAction) {
     return Object.fromEntries(
         Object.entries(action).filter(
@@ -69,9 +75,23 @@ export function mergeBoardReducer(
             return {
                 ...boardState,
                 items: boardState.items.map((item, index) => {
-                    return index === action.itemIndex
-                        ? { ...item, ...omitActionTypeAndIndex(action) }
-                        : item;
+                    if (index === action.itemIndex) {
+                        const editedItem = {
+                            ...item,
+                            ...omitActionTypeAndIndex(action),
+                        };
+                        if (
+                            typeof action.chainId !== "undefined" ||
+                            typeof action.itemLevel !== "undefined"
+                        ) {
+                            editedItem.itemType = deriveItemType(
+                                editedItem.chainId,
+                                editedItem.itemLevel
+                            );
+                        }
+                        return editedItem;
+                    }
+                    return item;
                 }),
             };
         }

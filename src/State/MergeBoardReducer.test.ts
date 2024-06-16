@@ -3,55 +3,8 @@ import {
     MergeBoardInitAction,
     mergeBoardReducer,
 } from "./MergeBoardReducer";
+import { deriveItemType, getInitialBoardState } from "./TestHelpers";
 import { Item, MergeBoard, Visibility } from "./Types";
-
-export const getInitialBoardState = (): MergeBoard => ({
-    boardId: "edit_tests_board",
-    height: 3,
-    width: 3,
-    items: [
-        {
-            itemId: 1173,
-            itemType: "BroomCabinet_04",
-            chainId: "BroomCabinet",
-            pausedUntil: new Date("2024-08-29T12:31:20.783Z"),
-            createdAt: new Date("2023-12-07T09:48:41.2390000Z"),
-            visibility: Visibility.Visible,
-            itemLevel: 4,
-            isInsideBubble: false,
-        },
-        {
-            itemId: 607,
-            itemType: "Vase_08",
-            chainId: "Vase",
-            pausedUntil: null,
-            createdAt: new Date("2023-12-12T07:20:35.3010000Z"),
-            visibility: Visibility.Visible,
-            itemLevel: 8,
-            isInsideBubble: false,
-        },
-        {
-            itemId: 1354,
-            itemType: "PlantedBush_05",
-            chainId: "PlantedBush",
-            pausedUntil: null,
-            createdAt: new Date("2023-12-17T06:56:57.5560000Z"),
-            visibility: Visibility.Visible,
-            itemLevel: 5,
-            isInsideBubble: false,
-        },
-        {
-            itemId: 7080,
-            itemType: "LevelDownBoosterScissors_01",
-            chainId: "LevelDownBoosterScissors",
-            pausedUntil: null,
-            createdAt: new Date("2023-12-12T18:32:55.9850000Z"),
-            visibility: Visibility.Visible,
-            itemLevel: 1,
-            isInsideBubble: false,
-        },
-    ],
-});
 
 describe("Merge board reducer", () => {
     describe("init action", () => {
@@ -99,28 +52,16 @@ describe("Merge board reducer", () => {
             initialBoardState = getInitialBoardState();
         });
 
-        it("should allow editing the item type", () => {
-            const desiredState = getInitialBoardState();
-            const indexToEdit = 0;
-            const desiredItemState = desiredState.items[indexToEdit] as Item;
-            const desiredType = "MaintenanceTools_10";
-            desiredItemState.itemType = desiredType;
-
-            expect(
-                mergeBoardReducer(initialBoardState, {
-                    type: MergeBoardActionType.EditItem,
-                    itemIndex: indexToEdit,
-                    itemType: desiredType,
-                })
-            ).toStrictEqual(desiredState);
-        });
-
-        it("should allow editing the chain ID", () => {
+        it("should allow editing the chain ID & derive the item type", () => {
             const desiredState = getInitialBoardState();
             const indexToEdit = 1;
             const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredChainId = "BroomCabinet";
             desiredItemState.chainId = desiredChainId;
+            desiredItemState.itemType = deriveItemType(
+                desiredChainId,
+                desiredItemState.itemLevel
+            );
 
             expect(
                 mergeBoardReducer(initialBoardState, {
@@ -153,6 +94,10 @@ describe("Merge board reducer", () => {
             const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredLevel = 999999;
             desiredItemState.itemLevel = desiredLevel;
+            desiredItemState.itemType = deriveItemType(
+                desiredItemState.chainId,
+                desiredItemState.itemLevel
+            );
 
             expect(
                 mergeBoardReducer(initialBoardState, {
@@ -188,12 +133,15 @@ describe("Merge board reducer", () => {
             desiredItemState.visibility = Visibility.Hidden;
             desiredItemState.itemLevel = 100000;
             desiredItemState.isInsideBubble = true;
+            desiredItemState.itemType = deriveItemType(
+                desiredItemState.chainId,
+                desiredItemState.itemLevel
+            );
 
             expect(
                 mergeBoardReducer(initialBoardState, {
                     type: MergeBoardActionType.EditItem,
                     itemIndex: indexToEdit,
-                    itemType: desiredItemState.itemType,
                     chainId: desiredItemState.chainId,
                     visibility: desiredItemState.visibility,
                     itemLevel: desiredItemState.itemLevel,
