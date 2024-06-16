@@ -4,15 +4,10 @@ import { MergeBoardContext } from "State/MergeBoardReducer";
 import { MergeBoardCell } from "Components/MergeBoardCell";
 
 import "./MergeBoardVisualization.scss";
+import { useRequiredContext } from "Utils/useRequiredContext";
 
 export function MergeBoardVisualization() {
-    const mergeBoardState = useContext(MergeBoardContext);
-
-    if (mergeBoardState === null) {
-        throw new Error(
-            "MergeBoardVisualization must be used with MergeBoardContext.Provider"
-        );
-    }
+    const mergeBoardState = useRequiredContext(MergeBoardContext);
 
     return (
         <div

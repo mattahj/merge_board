@@ -14,6 +14,7 @@ import {
 import { classList } from "Utils/classList";
 
 import "./MergeBoardCell.scss";
+import { useRequiredContext } from "Utils/useRequiredContext";
 
 interface Props {
     item: Item | null;
@@ -21,26 +22,9 @@ interface Props {
 }
 
 export function MergeBoardCell({ item, cellIndex }: Props) {
-    const inspectorDispatch = useContext(MergeBoardInspectorDispatch);
-    if (inspectorDispatch === null) {
-        throw new Error(
-            "MergeBoardCell must be used with MergeBoardInspectorDispatch.Provider"
-        );
-    }
-
-    const inspector = useContext(MergeBoardInspectorContext);
-    if (inspector === null) {
-        throw new Error(
-            "MergeBoardCell must be used with MergeBoardInspectorContext.Provider"
-        );
-    }
-
-    const mergeBoardDispatch = useContext(MergeBoardDispatch);
-    if (mergeBoardDispatch === null) {
-        throw new Error(
-            "MergeBoardCell must be used with MergeBoardDispatch.Provider"
-        );
-    }
+    const inspectorDispatch = useRequiredContext(MergeBoardInspectorDispatch);
+    const inspector = useRequiredContext(MergeBoardInspectorContext);
+    const mergeBoardDispatch = useRequiredContext(MergeBoardDispatch);
 
     const [dragging, setDragging] = useState(false);
     const [draggedOver, setDraggedOver] = useState(false);
