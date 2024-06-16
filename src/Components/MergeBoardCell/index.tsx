@@ -110,6 +110,7 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
     const isHidden = item?.visibility === Visibility.Hidden;
     const itemConditionalClasses = classList({
         "merge-board-cell__item--hidden": isHidden,
+        "merge-board-cell__item--bubble": item?.isInsideBubble,
     });
 
     const isSelected = cellIndex === inspector.selectedCellIndex;
