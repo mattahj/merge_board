@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { Fragment, useMemo } from "react";
 
 import { Paper, Box, Divider, useTheme } from "@mui/material";
 import CallMergeIcon from "@mui/icons-material/CallMerge";
@@ -96,7 +96,7 @@ export function MergeChainVisualization() {
                                         (index + 1) % 5 === 0;
 
                                     return (
-                                        <>
+                                        <Fragment key={itemType}>
                                             <ItemIcon
                                                 itemType={itemType}
                                                 className={className}
@@ -111,7 +111,7 @@ export function MergeChainVisualization() {
                                                     }}
                                                 />
                                             )}
-                                        </>
+                                        </Fragment>
                                     );
                                 }
                             )}
