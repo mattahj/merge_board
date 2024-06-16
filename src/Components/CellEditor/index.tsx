@@ -8,6 +8,7 @@ import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
 import { MergeBoardContext } from "State/MergeBoardReducer";
 import { useRequiredContext } from "Utils/useRequiredContext";
 import { CellEditForm } from "Components/CellEditForm";
+import { CellAddForm } from "Components/CallAddForm";
 
 import "./CellEditor.scss";
 
@@ -49,9 +50,11 @@ export function CellEditor() {
         setshowMoveTutorial(false);
     }, [setshowMoveTutorial]);
 
+    const showAddForm = inspectorState.selectedCellIndex !== null && !item;
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Box minWidth={460} alignItems={"flex-start"}>
+            <Box width={460} alignItems={"flex-start"}>
                 {showClickTutorial && (
                     <Alert
                         severity="info"
@@ -71,6 +74,7 @@ export function CellEditor() {
                     </Alert>
                 )}
                 {item && <CellEditForm item={item} />}
+                {showAddForm && <CellAddForm />}
             </Box>
         </LocalizationProvider>
     );
