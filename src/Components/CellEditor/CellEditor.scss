@@ -1,5 +1,11 @@
-.cell-editor {
-    display: flex;
-    flex-direction: column;
-    min-width: 20%;
+.cell-editor-tutorial {
+    margin-bottom: 6px;
+}
+
+.cell-editor-form-row {
+    margin: 0 !important;
+
+    .MuiFormControlLabel-label {
+        margin-left: 12px;
+    }
 }
