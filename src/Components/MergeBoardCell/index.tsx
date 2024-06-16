@@ -142,7 +142,12 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 <div className="merge-board-cell__bubble" />
             )}
             {isSelected && (
-                <div className="merge-board-cell__selection-indicator" />
+                <div className="merge-board-cell__selection-indicator">
+                    <div className="merge-board-cell__selection-indicator__tl" />
+                    <div className="merge-board-cell__selection-indicator__tr" />
+                    <div className="merge-board-cell__selection-indicator__bl" />
+                    <div className="merge-board-cell__selection-indicator__br" />
+                </div>
             )}
             <div className="merge-board-cell__icons">
                 {isHidden && (

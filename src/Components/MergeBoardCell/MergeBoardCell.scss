@@ -68,15 +68,68 @@
     }
 
     &__selection-indicator {
-        width: 80%;
-        height: 80%;
+        width: 95%;
+        height: 95%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 4px solid #FFF;
-        box-sizing: border-box;
-        border-radius: 5px;
+
+        &__tl, &__tr, &__bl, &__br {
+            position: absolute;
+            width: 25%;
+            height: 25%;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-direction: alternate-reverse;
+            z-index: 900;
+        }
+
+        $border-thickness: 4px;
+        $border-radius: 5px;
+        $border-color: #ecebc9;
+        $shadow-color:#6c4756;
+        
+        &__tl {
+            top: 0;
+            left: 0;
+            border-top: $border-thickness solid $border-color;
+            border-left: $border-thickness solid $border-color;
+            border-top-left-radius: $border-thickness;
+            filter: drop-shadow(2px 2px #6c4756);
+            animation-name: float-tl;
+        }
+
+        &__tr {
+            top: 0;
+            right: 0;
+            border-top: $border-thickness solid $border-color;
+            border-right: $border-thickness solid $border-color;
+            border-top-right-radius: $border-thickness;
+            filter: drop-shadow(-2px 2px #6c4756);
+            animation-name: float-tr;
+        }
+
+        &__bl {
+            bottom: 0;
+            left: 0;
+            border-bottom: $border-thickness solid $border-color;
+            border-left: $border-thickness solid $border-color;
+            border-bottom-left-radius: $border-thickness;
+            filter: drop-shadow(2px -2px #6c4756);
+            animation-name: float-bl;
+        }
+
+        &__br {
+            bottom: 0;
+            right: 0;
+            border-bottom: $border-thickness solid $border-color;
+            border-right: $border-thickness solid $border-color;
+            border-bottom-right-radius: $border-thickness;
+            filter: drop-shadow(-2px -2px #6c4756);
+            animation-name: float-br;
+        }
     }
 
     &__icons {
@@ -92,5 +145,48 @@
         &__icon {
             filter: drop-shadow(2px 2px 2px #000);
         }
+    }
+}
+
+$float-amount: 1.5px;
+$floated-opacity: 0.8;
+
+@keyframes float-tl {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    100% {
+        transform: translate(-$float-amount, -$float-amount);
+        opacity: $floated-opacity;
+    }
+}
+
+@keyframes float-tr {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    100% {
+        transform: translate($float-amount, -$float-amount);
+        opacity: $floated-opacity;
+    }
+}
+
+@keyframes float-bl {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    100% {
+        transform: translate(-$float-amount, $float-amount);
+        opacity: $floated-opacity;
+    }
+}
+
+@keyframes float-br {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    100% {
+        transform: translate($float-amount, $float-amount);
+        opacity: $floated-opacity;
     }
 }
