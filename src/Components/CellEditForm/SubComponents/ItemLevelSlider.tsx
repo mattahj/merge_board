@@ -44,7 +44,6 @@ export function ItemLevelSlider({ item }: ItemLevelSliderProps) {
                 <Slider
                     marks
                     valueLabelDisplay="on"
-                    size="small"
                     min={mergeBoardState.itemChainLevelBounds[item.chainId].min}
                     max={mergeBoardState.itemChainLevelBounds[item.chainId].max}
                     step={1}

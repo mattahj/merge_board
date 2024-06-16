@@ -57,7 +57,7 @@ export function CellEditForm({ item }: CellEditFormProps) {
                     <CellEditFormHeading item={item} />
                 )}
                 <Divider sx={{ marginY: 1 }} />
-                <FormGroup>
+                <FormGroup sx={{ padding: 1 }}>
                     <ItemChainSelect item={item} />
                     {showLevelSlider ? (
                         <ItemLevelSlider item={item} />

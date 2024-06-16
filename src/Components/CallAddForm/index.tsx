@@ -5,8 +5,6 @@ import {
     Box,
     Divider,
     FormControlLabel,
-    MenuItem,
-    Select,
     Slider,
     Button,
     FormGroup,
@@ -26,6 +24,7 @@ import {
 import { deriveItemType } from "State/TestHelpers";
 import { formatISO } from "date-fns";
 import { Visibility } from "State/Types";
+import { ItemIcon } from "Components/ItemIcon";
 
 let idCount = 0;
 
@@ -92,13 +91,11 @@ export function CellAddForm() {
                     using MergeBoard::availableItemChains and a Select field!
                 </p>
                 <Divider sx={{ marginY: 1 }} />
-                <FormGroup>
+                <FormGroup sx={{ padding: 1 }}>
                     <div className="add-cell-preview">
-                        <div
+                        <ItemIcon
+                            itemType={derivedItemType}
                             className="add-cell-preview__image"
-                            style={{
-                                backgroundImage: `url(public/images/${derivedItemType}.webp)`,
-                            }}
                         />
                         <p>{derivedItemType}</p>
                     </div>
@@ -109,7 +106,6 @@ export function CellAddForm() {
                             <Slider
                                 marks
                                 valueLabelDisplay="on"
-                                size="small"
                                 min={1}
                                 max={10}
                                 step={1}

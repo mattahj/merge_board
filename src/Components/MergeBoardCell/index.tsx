@@ -15,6 +15,7 @@ import {
 } from "State/MergeBoardReducer";
 import { classList } from "Utils/classList";
 import { useRequiredContext } from "Utils/useRequiredContext";
+import { ItemIcon } from "Components/ItemIcon";
 
 import "./MergeBoardCell.scss";
 
@@ -132,11 +133,9 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 className={`merge-board-cell__background ${backgroundConditionalClasses}`}
             />
             {item && (
-                <div
+                <ItemIcon
                     className={`merge-board-cell__item ${itemConditionalClasses}`}
-                    style={{
-                        backgroundImage: `url(public/images/${item.itemType}.webp)`,
-                    }}
+                    itemType={item.itemType}
                 />
             )}
             {item?.isInsideBubble && (

@@ -37,11 +37,7 @@ export function ItemChainSelect({ item }: ItemChainSelectProps) {
         <FormControlLabel
             label="Item Chain"
             control={
-                <Select
-                    size="small"
-                    value={item.chainId}
-                    onChange={handleItemChainChange}
-                >
+                <Select value={item.chainId} onChange={handleItemChainChange}>
                     {mergeBoardState?.availableItemChains.map((chainId) => (
                         <MenuItem value={chainId} key={chainId}>
                             {chainId}
