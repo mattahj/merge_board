@@ -39,7 +39,7 @@ export function ItemChainSelect({ item }: ItemChainSelectProps) {
             control={
                 <Select
                     size="small"
-                    value={item?.chainId}
+                    value={item.chainId}
                     onChange={handleItemChainChange}
                 >
                     {mergeBoardState?.availableItemChains.map((chainId) => (

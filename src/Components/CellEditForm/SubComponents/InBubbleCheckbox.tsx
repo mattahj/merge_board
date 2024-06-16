@@ -35,7 +35,7 @@ export function InBubbleCheckbox({ item }: InBubbleCheckboxProps) {
             label="In Bubble"
             control={
                 <Checkbox
-                    checked={item?.isInsideBubble}
+                    checked={item.isInsideBubble}
                     onChange={handleBubbleChange}
                     style={{
                         marginLeft: -12,
