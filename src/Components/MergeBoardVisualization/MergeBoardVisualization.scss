@@ -5,6 +5,7 @@
     position: relative;
     
     // Generated from https://css-generators.com/custom-corners/
+    // matches the look of the notched corners in the game
     --mask: radial-gradient(4px at 4px 4px,#0000 98%,#000) -4px -4px;
     -webkit-mask: var(--mask);
             mask: var(--mask);

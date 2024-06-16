@@ -183,7 +183,6 @@ describe("Merge board reducer", () => {
             const sourceIndex = 3;
             const destIndex = 1;
             initialBoardState.items[destIndex] = null;
-            const itemToMove = initialBoardState.items[sourceIndex] as Item;
 
             const desiredState = getInitialBoardState();
             desiredState.items[destIndex] = desiredState.items[sourceIndex];
@@ -201,7 +200,6 @@ describe("Merge board reducer", () => {
         it("should swap items if the destination cell is not empty", () => {
             const sourceIndex = 3;
             const destIndex = 1;
-            const itemToMove = initialBoardState.items[sourceIndex] as Item;
 
             const desiredState = getInitialBoardState();
             const itemToSwap = desiredState.items[destIndex];
@@ -228,7 +226,6 @@ describe("Merge board reducer", () => {
         it("should set the target cell to null", () => {
             const desiredState = getInitialBoardState();
             const indexToRemove = 2;
-            const removedItem = desiredState.items[indexToRemove] as Item;
             desiredState.items[indexToRemove] = null;
 
             expect(

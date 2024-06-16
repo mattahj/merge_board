@@ -1,4 +1,4 @@
-import React, { useContext, useId } from "react";
+import React from "react";
 
 import { MergeBoardContext } from "State/MergeBoardReducer";
 import { MergeBoardCell } from "Components/MergeBoardCell";

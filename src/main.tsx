@@ -1,5 +1,6 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+
 import { App } from "Components/App";
 import { MergeBoard } from "State/Types";
 import {
