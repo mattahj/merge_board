@@ -64,6 +64,10 @@ function omitActionTypeAndIndex(action: MergeBoardAction) {
     );
 }
 
+function clamp(n: number, min: number, max: number) {
+    return Math.min(Math.max(n, min), max);
+}
+
 export function mergeBoardReducer(
     boardState: MergeBoard,
     action: MergeBoardAction
@@ -81,8 +85,26 @@ export function mergeBoardReducer(
                             ...item,
                             ...omitActionTypeAndIndex(action),
                         };
+
+                        const editingChainId =
+                            typeof action.chainId !== "undefined";
+
                         if (
-                            typeof action.chainId !== "undefined" ||
+                            editingChainId &&
+                            boardState?.itemChainLevelBounds[action.chainId]
+                        ) {
+                            const levelBounds =
+                                boardState.itemChainLevelBounds[action.chainId];
+
+                            editedItem.itemLevel = clamp(
+                                editedItem.itemLevel,
+                                levelBounds.min,
+                                levelBounds.max
+                            );
+                        }
+
+                        if (
+                            editingChainId ||
                             typeof action.itemLevel !== "undefined"
                         ) {
                             editedItem.itemType = deriveItemType(

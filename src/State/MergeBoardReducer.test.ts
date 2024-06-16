@@ -14,6 +14,7 @@ describe("Merge board reducer", () => {
                 height: 100,
                 width: 200,
                 items: [],
+                itemChainLevelBounds: {},
             };
 
             const newState: MergeBoard = {
@@ -32,6 +33,7 @@ describe("Merge board reducer", () => {
                         visibility: Visibility.Visible,
                     },
                 ],
+                itemChainLevelBounds: {},
             };
 
             const initAction: MergeBoardInitAction = {
@@ -52,12 +54,15 @@ describe("Merge board reducer", () => {
             initialBoardState = getInitialBoardState();
         });
 
-        it("should allow editing the chain ID & derive the item type", () => {
+        it("should allow editing the chain ID & derive the item type & clamp the item level", () => {
             const desiredState = getInitialBoardState();
             const indexToEdit = 1;
             const desiredItemState = desiredState.items[indexToEdit] as Item;
             const desiredChainId = "BroomCabinet";
             desiredItemState.chainId = desiredChainId;
+            // Vase has item level 8, so should be clamped
+            desiredItemState.itemLevel =
+                desiredState.itemChainLevelBounds[desiredChainId].max;
             desiredItemState.itemType = deriveItemType(
                 desiredChainId,
                 desiredItemState.itemLevel
