@@ -2,9 +2,9 @@ import React from "react";
 
 import { MergeBoardContext } from "State/MergeBoardReducer";
 import { MergeBoardCell } from "Components/MergeBoardCell";
+import { useRequiredContext } from "Utils/useRequiredContext";
 
 import "./MergeBoardVisualization.scss";
-import { useRequiredContext } from "Utils/useRequiredContext";
 
 export function MergeBoardVisualization() {
     const mergeBoardState = useRequiredContext(MergeBoardContext);
