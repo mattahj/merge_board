@@ -1,16 +1,10 @@
 import React, { useCallback, useMemo, useState } from "react";
 
+import { formatISO } from "date-fns";
+
 import Button from "@mui/material/Button";
-
-import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
-import {
-    MergeBoardActionType,
-    MergeBoardContext,
-    MergeBoardDispatch,
-} from "State/MergeBoardReducer";
-import { useRequiredContext } from "Utils/useRequiredContext";
-
-import "./CellEditor.scss";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import {
     Alert,
     Box,
@@ -23,6 +17,18 @@ import {
     Paper,
     Select,
 } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
+import {
+    MergeBoardActionType,
+    MergeBoardContext,
+    MergeBoardDispatch,
+} from "State/MergeBoardReducer";
+import { useRequiredContext } from "Utils/useRequiredContext";
+
+import "./CellEditor.scss";
+
 import { Item, Visibility } from "State/Types";
 
 // Cell Editor is responsible for showing information about a cell in
@@ -142,6 +148,20 @@ export function CellEditor() {
         [mergeBoardDispatch, inspectorState]
     );
 
+    const handlePauseTimeChange = useCallback(
+        (newDateValue) => {
+            mergeBoardDispatch({
+                type: MergeBoardActionType.EditItem,
+                itemIndex: inspectorState.selectedCellIndex,
+                pausedUntil:
+                    newDateValue !== null
+                        ? formatISO(newDateValue)
+                        : newDateValue,
+            });
+        },
+        [mergeBoardDispatch, inspectorState]
+    );
+
     const [showClickTutorial, setShowClickTutorial] = useState(true);
     const onClickTutorialClosed = useCallback(() => {
         setShowClickTutorial(false);
@@ -153,107 +173,132 @@ export function CellEditor() {
     }, [setshowMoveTutorial]);
 
     return (
-        <Box minWidth={460} alignItems={"flex-start"}>
-            {showClickTutorial && (
-                <Alert
-                    severity="info"
-                    className="cell-editor-tutorial"
-                    onClose={onClickTutorialClosed}
-                >
-                    Click on a cell to select
-                </Alert>
-            )}
-            {showMoveTutorial && (
-                <Alert
-                    severity="info"
-                    className="cell-editor-tutorial"
-                    onClose={onMoveTutorialClosed}
-                >
-                    Click and drag to move items
-                </Alert>
-            )}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Box minWidth={460} alignItems={"flex-start"}>
+                {showClickTutorial && (
+                    <Alert
+                        severity="info"
+                        className="cell-editor-tutorial"
+                        onClose={onClickTutorialClosed}
+                    >
+                        Click on a cell to select
+                    </Alert>
+                )}
+                {showMoveTutorial && (
+                    <Alert
+                        severity="info"
+                        className="cell-editor-tutorial"
+                        onClose={onMoveTutorialClosed}
+                    >
+                        Click and drag to move items
+                    </Alert>
+                )}
 
-            {item && (
-                <Paper variant="outlined">
-                    <Box padding={2}>
-                        {inspectorState.selectedCellIndex !== null && (
-                            <div className="cell-editor-heading">
-                                <div
-                                    className="cell-editor-heading__item"
-                                    style={{
-                                        backgroundImage: `url(public/images/${item.itemType}.webp)`,
-                                    }}
+                {item && (
+                    <Paper variant="outlined">
+                        <Box padding={2}>
+                            {inspectorState.selectedCellIndex !== null && (
+                                <div className="cell-editor-heading">
+                                    <div
+                                        className="cell-editor-heading__item"
+                                        style={{
+                                            backgroundImage: `url(public/images/${item.itemType}.webp)`,
+                                        }}
+                                    />
+                                    <h3 style={{ margin: 0 }}>
+                                        {item.itemType}
+                                    </h3>
+                                </div>
+                            )}
+                            <Divider sx={{ marginY: 1 }} />
+
+                            <FormGroup>
+                                <FormControlLabel
+                                    label="Item Chain"
+                                    control={
+                                        <Select
+                                            size="small"
+                                            value={item?.chainId}
+                                            onChange={handleItemChainChange}
+                                        >
+                                            {availableItemChains.map(
+                                                (chainId) => (
+                                                    <MenuItem
+                                                        value={chainId}
+                                                        key={chainId}
+                                                    >
+                                                        {chainId}
+                                                    </MenuItem>
+                                                )
+                                            )}
+                                        </Select>
+                                    }
                                 />
-                                <h3 style={{ margin: 0 }}>{item.itemType}</h3>
-                            </div>
-                        )}
-                        <Divider sx={{ marginY: 1 }} />
-                        <FormGroup>
-                            <FormControlLabel
-                                label="Item Chain"
-                                className="cell-editor-form-row"
-                                control={
-                                    <Select
-                                        size="small"
-                                        value={item?.chainId}
-                                        onChange={handleItemChainChange}
-                                    >
-                                        {availableItemChains.map((chainId) => (
-                                            <MenuItem
-                                                value={chainId}
-                                                key={chainId}
-                                            >
-                                                {chainId}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                }
-                            />
-                            <FormControlLabel
-                                label="Level"
-                                className="cell-editor-form-row"
-                                onChange={handleItemLevelChange}
-                                control={
-                                    <Input required value={item?.itemLevel} />
-                                }
-                            />
-                            <FormControlLabel
-                                label="In Bubble"
-                                className="cell-editor-form-row"
-                                control={
-                                    <Checkbox
-                                        checked={item?.isInsideBubble}
-                                        onChange={handleBubbleChange}
-                                        style={{
-                                            marginLeft: -12,
-                                        }}
-                                    />
-                                }
-                            />
-                            <FormControlLabel
-                                label="Hidden"
-                                className="cell-editor-form-row"
-                                control={
-                                    <Checkbox
-                                        checked={
-                                            item?.visibility ===
-                                            Visibility.Hidden
-                                        }
-                                        onChange={handleVisibilityChange}
-                                        style={{
-                                            marginLeft: -12,
-                                        }}
-                                    />
-                                }
-                            />
+                                <FormControlLabel
+                                    label="Level"
+                                    onChange={handleItemLevelChange}
+                                    control={
+                                        <Input
+                                            required
+                                            value={item?.itemLevel}
+                                        />
+                                    }
+                                />
+                                <FormControlLabel
+                                    label="In Bubble"
+                                    control={
+                                        <Checkbox
+                                            checked={item?.isInsideBubble}
+                                            onChange={handleBubbleChange}
+                                            style={{
+                                                marginLeft: -12,
+                                            }}
+                                        />
+                                    }
+                                />
+                                <FormControlLabel
+                                    label="Hidden"
+                                    control={
+                                        <Checkbox
+                                            checked={
+                                                item?.visibility ===
+                                                Visibility.Hidden
+                                            }
+                                            onChange={handleVisibilityChange}
+                                            style={{
+                                                marginLeft: -12,
+                                            }}
+                                        />
+                                    }
+                                />
+                                <FormControlLabel
+                                    label="Paused Until"
+                                    control={
+                                        <DateTimePicker
+                                            slotProps={{
+                                                actionBar: {
+                                                    actions: ["clear"],
+                                                },
+                                            }}
+                                            value={
+                                                item.pausedUntil !== null
+                                                    ? new Date(item.pausedUntil)
+                                                    : null
+                                            }
+                                            onChange={handlePauseTimeChange}
+                                        />
+                                    }
+                                />
+                            </FormGroup>
+
                             <Divider sx={{ marginY: 1 }} />
                             <Button variant="outlined" onClick={handleDelete}>
                                 Delete item
                             </Button>
-                        </FormGroup>
-                    </Box>
-                </Paper>
-            )}
-        </Box>
+                        </Box>
+                    </Paper>
+                )}
+            </Box>
+        </LocalizationProvider>
     );
 }
