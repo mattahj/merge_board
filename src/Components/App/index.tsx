@@ -1,23 +1,20 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React from "react";
+
+import { CssBaseline, createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 
 import { MergeBoardVisualization } from "Components/MergeBoardVisualization";
 import { CellEditor } from "Components/CellEditor";
 import { MergeBoard } from "State/Types";
 import { MergeBoardProvider } from "State/MergeBoardReducer";
-import {
-    MergeBoardInspectorActionType,
-    MergeBoardInspectorDispatch,
-    MergeBoardInspectorProvider,
-} from "State/MergeBoardInspectorReducer";
+import { MergeBoardInspectorProvider } from "State/MergeBoardInspectorReducer";
+import { MergeChainVisualization } from "Components/MergeChainVisualization";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./App.scss";
-import { CssBaseline, createTheme } from "@mui/material";
-import { ThemeProvider } from "@emotion/react";
-import { useRequiredContext } from "Utils/useRequiredContext";
 
 interface Props {
     initialData: MergeBoard;
@@ -38,34 +35,13 @@ export function App({ initialData, initialSelection = null }: Props) {
                 <MergeBoardInspectorProvider
                     initialSelection={initialSelection}
                 >
-                    <AppContent />
+                    <div className="app">
+                        <CellEditor />
+                        <MergeBoardVisualization />
+                        <MergeChainVisualization />
+                    </div>
                 </MergeBoardInspectorProvider>
             </MergeBoardProvider>
         </ThemeProvider>
-    );
-}
-
-// Seperate private component for MergeBoardInspectorDispatch context access
-// This is so current selection can be cleared when clicking outside of the grid
-function AppContent() {
-    const inspectorDispatch = useRequiredContext(MergeBoardInspectorDispatch);
-    const appRef = useRef(null);
-    const clearSelection = useCallback(
-        (evt: React.MouseEvent<HTMLDivElement>) => {
-            // Only clicks directly on the app background, not on form or whatever elements
-            if (evt.target === appRef?.current) {
-                inspectorDispatch({
-                    type: MergeBoardInspectorActionType.ClearSelection,
-                });
-            }
-        },
-        [inspectorDispatch]
-    );
-
-    return (
-        <div className="app" onMouseDown={clearSelection} ref={appRef}>
-            <MergeBoardVisualization />
-            <CellEditor />
-        </div>
     );
 }
