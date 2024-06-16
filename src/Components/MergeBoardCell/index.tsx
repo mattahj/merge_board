@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from "react";
+
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 
 import { Item, Visibility } from "State/Types";
 import {
@@ -143,9 +145,14 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
             {isSelected && (
                 <div className="merge-board-cell__selection-indicator" />
             )}
-            {isHidden && (
-                <VisibilityOffIcon className="merge-board-cell__visibility" />
-            )}
+            <div className="merge-board-cell__icons">
+                {isHidden && (
+                    <VisibilityOffIcon className="merge-board-cell__icons__icon" />
+                )}
+                {item && item.pausedUntil !== null && (
+                    <PauseCircleOutlineIcon className="merge-board-cell__icons__icon" />
+                )}
+            </div>
         </div>
     );
 }
