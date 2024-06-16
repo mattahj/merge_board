@@ -86,9 +86,13 @@ export function CellAddForm() {
                     <h3 style={{ margin: 0 }}>Add Item</h3>
                 </div>
                 <p>
-                    You can only add {hardcodedItemChainToAdd} items. It would
-                    be trivial to update this to allow adding any item type
-                    using MergeBoard::availableItemChains and a Select field!
+                    You can only add {hardcodedItemChainToAdd} items because the
+                    assignment explicitly said that it should be like this.
+                </p>
+                <p>
+                    It would be trivial to update this to allow adding any item
+                    type using MergeBoard::availableItemChains and a Select
+                    field!
                 </p>
                 <Divider sx={{ marginY: 1 }} />
                 <FormGroup sx={{ padding: 1, gap: 2 }}>
