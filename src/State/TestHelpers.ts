@@ -50,4 +50,22 @@ export const getInitialBoardState = (): MergeBoard => ({
             isInsideBubble: false,
         },
     ],
+    itemChainLevelBounds: {
+        LevelDownBoosterScissors: {
+            min: 1,
+            max: 1,
+        },
+        PlantedBush: {
+            min: 1,
+            max: 5,
+        },
+        Vase: {
+            min: 1,
+            max: 8,
+        },
+        BroomCabinet: {
+            min: 1,
+            max: 4,
+        },
+    },
 });

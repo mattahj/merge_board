@@ -1,12 +1,20 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "Components/App";
+import { MergeBoard } from "State/Types";
+import {
+    deriveAvailableItemChains,
+    deriveChainLevelRanges,
+} from "Utils/deriveItemChains";
 
 async function main() {
     try {
         const initialDataUrl = "public/assigment.json";
         const initialDataResponse = await fetch(initialDataUrl);
-        const initialData = await initialDataResponse.json();
+        const initialData: MergeBoard = await initialDataResponse.json();
+        initialData.itemChainLevelBounds = deriveChainLevelRanges(initialData);
+        initialData.availableItemChains =
+            deriveAvailableItemChains(initialData);
 
         const rootElement = document.getElementById("root");
         if (rootElement) {

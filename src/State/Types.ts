@@ -1,10 +1,10 @@
-// Types were generated from the assingment json using quicktype vscode plugin
-
 export interface MergeBoard {
     width: number;
     height: number;
     boardId: string;
     items: Array<Item | null>;
+    itemChainLevelBounds?: Record<string, { min: number; max: number }>;
+    availableItemChains?: string[];
 }
 
 export interface Item {
