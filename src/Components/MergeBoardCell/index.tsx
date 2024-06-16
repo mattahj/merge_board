@@ -1,7 +1,7 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-import { Item } from "State/Types";
-
+import { Item, Visibility } from "State/Types";
 import {
     MergeBoardInspectorActionType,
     MergeBoardInspectorContext,
@@ -12,9 +12,9 @@ import {
     MergeBoardDispatch,
 } from "State/MergeBoardReducer";
 import { classList } from "Utils/classList";
+import { useRequiredContext } from "Utils/useRequiredContext";
 
 import "./MergeBoardCell.scss";
-import { useRequiredContext } from "Utils/useRequiredContext";
 
 interface Props {
     item: Item | null;
@@ -97,18 +97,22 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
         setDragging(false);
     }, [setDragging]);
 
-    const isSelected = cellIndex === inspector.selectedCellIndex;
-    const styles = item
-        ? {
-              backgroundImage: `url(public/images/${item.itemType}.webp)`,
-          }
-        : {};
-
     const conditionalClasses = classList({
         "merge-board-cell--drop-target": draggedOver,
         "merge-board-cell--dragging": dragging,
         "merge-board-cell--odd": cellIndex % 2 !== 0,
     });
+
+    const backgroundConditionalClasses = classList({
+        "merge-board-cell__background--odd": cellIndex % 2 !== 0,
+    });
+
+    const isHidden = item?.visibility === Visibility.Hidden;
+    const itemConditionalClasses = classList({
+        "merge-board-cell__item--hidden": isHidden,
+    });
+
+    const isSelected = cellIndex === inspector.selectedCellIndex;
 
     return (
         <div
@@ -119,14 +123,27 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDragEnd={handleDragEnd}
-            style={styles}
             draggable
         >
+            <div
+                className={`merge-board-cell__background ${backgroundConditionalClasses}`}
+            />
+            {item && (
+                <div
+                    className={`merge-board-cell__item ${itemConditionalClasses}`}
+                    style={{
+                        backgroundImage: `url(public/images/${item.itemType}.webp)`,
+                    }}
+                />
+            )}
             {item?.isInsideBubble && (
                 <div className="merge-board-cell__bubble" />
             )}
             {isSelected && (
                 <div className="merge-board-cell__selection-indicator" />
+            )}
+            {isHidden && (
+                <VisibilityOffIcon className="merge-board-cell__visibility" />
             )}
         </div>
     );
