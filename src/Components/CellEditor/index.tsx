@@ -58,6 +58,7 @@ export function CellEditor() {
                 {showClickTutorial && (
                     <Alert
                         severity="info"
+                        variant="outlined"
                         className="cell-editor-tutorial"
                         onClose={onClickTutorialClosed}
                     >
@@ -67,6 +68,7 @@ export function CellEditor() {
                 {showMoveTutorial && (
                     <Alert
                         severity="info"
+                        variant="outlined"
                         className="cell-editor-tutorial"
                         onClose={onMoveTutorialClosed}
                     >
