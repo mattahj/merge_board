@@ -1,30 +1,22 @@
 import React, { useCallback, useState } from "react";
+import { formatISO } from "date-fns";
 
-import {
-    Paper,
-    Box,
-    Divider,
-    FormControlLabel,
-    Slider,
-    Button,
-    FormGroup,
-} from "@mui/material";
-
-import PostAddIcon from "@mui/icons-material/PostAdd";
+import { Paper, Box, Divider, Button, FormGroup } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 import { useRequiredContext } from "Utils/useRequiredContext";
 import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
-
-import "./CellAddForm.scss";
 import {
     MergeBoardActionType,
     MergeBoardDispatch,
 } from "State/MergeBoardReducer";
 import { deriveItemType } from "State/TestHelpers";
-import { formatISO } from "date-fns";
 import { Visibility } from "State/Types";
-import { ItemIcon } from "Components/ItemIcon";
+import { CellAddFormHeading } from "./SubComponents/CellAddFormHeading";
+import { CellAddFormPreview } from "./SubComponents/CellAddFormPreview";
+import { CellAddFormLevelSlider } from "./SubComponents/CellAddFormLevelSlider";
+
+import "./CellAddForm.scss";
 
 let idCount = 0;
 
@@ -75,52 +67,17 @@ export function CellAddForm() {
     return (
         <Paper variant="outlined">
             <Box padding={2}>
-                <div className="add-cell-heading">
-                    <PostAddIcon
-                        sx={{
-                            width: 48,
-                            height: 48,
-                        }}
-                        className="add-cell-heading__icon"
-                    />
-                    <h3 style={{ margin: 0 }}>Add Item</h3>
-                </div>
-                <p>
-                    You can only add {hardcodedItemChainToAdd} items because the
-                    assignment explicitly said that it should be like this.
-                </p>
-                <p>
-                    It would be trivial to update this to allow adding any item
-                    type using MergeBoard::availableItemChains and a Select
-                    field!
-                </p>
+                <CellAddFormHeading
+                    hardcodedItemChainToAdd={hardcodedItemChainToAdd}
+                />
                 <Divider sx={{ marginY: 1 }} />
                 <FormGroup sx={{ padding: 1, gap: 2 }}>
-                    <div className="add-cell-preview">
-                        <ItemIcon
-                            itemType={derivedItemType}
-                            className="add-cell-preview__image"
-                        />
-                        <p>{derivedItemType}</p>
-                    </div>
-                    <FormControlLabel
-                        label="Level"
-                        labelPlacement="top"
-                        onChange={handlePendingItemLevelChange}
-                        sx={{
-                            alignItems: "flex-start",
-                            margin: 0,
-                        }}
-                        control={
-                            <Slider
-                                marks
-                                valueLabelDisplay="auto"
-                                min={1}
-                                max={10}
-                                step={1}
-                                value={pendingItemLevel}
-                            />
+                    <CellAddFormPreview derivedItemType={derivedItemType} />
+                    <CellAddFormLevelSlider
+                        handlePendingItemLevelChange={
+                            handlePendingItemLevelChange
                         }
+                        pendingItemLevel={pendingItemLevel}
                     />
                 </FormGroup>
                 <Divider sx={{ marginY: 1 }} />

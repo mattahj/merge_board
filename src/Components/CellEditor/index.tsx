@@ -8,7 +8,7 @@ import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
 import { MergeBoardContext } from "State/MergeBoardReducer";
 import { useRequiredContext } from "Utils/useRequiredContext";
 import { CellEditForm } from "Components/CellEditForm";
-import { CellAddForm } from "Components/CallAddForm";
+import { CellAddForm } from "Components/CellAddForm";
 
 import "./CellEditor.scss";
 
