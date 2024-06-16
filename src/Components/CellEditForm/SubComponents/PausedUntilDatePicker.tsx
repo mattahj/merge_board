@@ -48,6 +48,7 @@ export function PausedUntilDatePicker({ item }: PausedUntilDatePickerProps) {
                         actionBar: {
                             actions: ["accept", "cancel", "clear"],
                         },
+                        field: { clearable: true },
                     }}
                     value={
                         item.pausedUntil !== null
