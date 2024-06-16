@@ -63,7 +63,7 @@ function AppContent() {
     );
 
     return (
-        <div className="app" onClick={clearSelection} ref={appRef}>
+        <div className="app" onMouseDown={clearSelection} ref={appRef}>
             <MergeBoardVisualization />
             <CellEditor />
         </div>
