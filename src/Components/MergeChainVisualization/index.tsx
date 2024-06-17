@@ -1,14 +1,14 @@
-import React, { Fragment, useMemo } from "react";
+import React, { useMemo } from "react";
 
-import { Paper, Box, Divider, useTheme } from "@mui/material";
+import { Paper, Box, Divider } from "@mui/material";
 import CallMergeIcon from "@mui/icons-material/CallMerge";
 
 import { deriveItemType } from "State/TestHelpers";
 import { MergeBoardContext } from "State/MergeBoardReducer";
 import { useRequiredContext } from "Utils/useRequiredContext";
-import { ItemIcon } from "Components/ItemIcon";
-import { classList } from "Utils/classList";
 import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
+
+import { MergeChainEntry } from "./SubComponents/MergeChainEntry";
 
 import "./MergeChainVisualization.scss";
 
@@ -54,25 +54,32 @@ export function MergeChainVisualization() {
         // itemChainLevelBounds in mergeBoardState is assumed to never change, so no mergeBoardState in deps here
     }, [chainId, focusedLevel, mergeChainBounds]);
 
-    const theme = useTheme();
-
     return (
         <Box width={460} alignItems={"flex-start"}>
-            {showVisualization && (
+            {chainId && (
                 <Paper variant="outlined" className="merge-chain-vis">
                     <Box padding={2}>
-                        <div className="merge-chain-vis__title">
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                            }}
+                        >
                             <CallMergeIcon
                                 sx={{
                                     width: 48,
                                     height: 48,
                                 }}
-                                className="merge-chain-vis__title__icon"
                             />
                             <h3 style={{ margin: 0 }}>
                                 Merge chain for {chainId}
                             </h3>
-                        </div>
+                        </Box>
+                        <p>
+                            Hover items in the chain to see their item type ID.
+                        </p>
                         <Divider sx={{ marginY: 1 }} />
                         <Box
                             sx={{
@@ -84,36 +91,24 @@ export function MergeChainVisualization() {
                                 justifyContent: "center",
                             }}
                         >
-                            {mergeChain.map(
-                                ({ itemType, itemLevel }, index) => {
-                                    const conditionalClasses = classList({
-                                        "merge-chain-vis__item--focused":
-                                            itemLevel === focusedLevel,
-                                    });
-                                    const className = `merge-chain-vis__item ${conditionalClasses}`;
-                                    const hideArrow =
-                                        index === mergeChain.length - 1 ||
-                                        (index + 1) % 5 === 0;
-
-                                    return (
-                                        <Fragment key={itemType}>
-                                            <ItemIcon
-                                                itemType={itemType}
-                                                className={className}
-                                            />
-                                            {!hideArrow && (
-                                                <div
-                                                    className="merge-chain-vis__arrow"
-                                                    style={{
-                                                        borderLeftColor:
-                                                            theme.palette
-                                                                .primary.main,
-                                                    }}
-                                                />
-                                            )}
-                                        </Fragment>
-                                    );
-                                }
+                            {showVisualization ? (
+                                mergeChain.map(
+                                    ({ itemType, itemLevel }, index) => (
+                                        <MergeChainEntry
+                                            focusedLevel={focusedLevel}
+                                            index={index}
+                                            itemLevel={itemLevel}
+                                            itemType={itemType}
+                                            mergeChain={mergeChain}
+                                            key={itemType}
+                                        />
+                                    )
+                                )
+                            ) : (
+                                <p>
+                                    This item has no other items in its merge
+                                    chain.
+                                </p>
                             )}
                         </Box>
                     </Box>

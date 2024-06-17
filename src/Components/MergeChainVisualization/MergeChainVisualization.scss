@@ -22,15 +22,5 @@
         border-left: $arrow-size solid #000;
     }
 
-    &__title {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-
-        &__icon {
-            margin-right: 8px;
-        }
-    }
 
 }

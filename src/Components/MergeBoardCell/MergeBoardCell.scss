@@ -148,6 +148,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        pointer-events: none;
 
         &__icon {
             filter: drop-shadow(2px 2px 2px #000);

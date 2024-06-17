@@ -1,14 +1,17 @@
 import React from "react";
 
 import "./ItemIcon.scss";
+import { Tooltip } from "@mui/material";
 
 export function ItemIcon({ itemType, className = "" }) {
     return (
-        <div
-            className={`item-icon ${className}`}
-            style={{
-                backgroundImage: `url(public/images/${itemType}.webp)`,
-            }}
-        />
+        <Tooltip title={itemType}>
+            <div
+                className={`item-icon ${className}`}
+                style={{
+                    backgroundImage: `url(public/images/${itemType}.webp)`,
+                }}
+            />
+        </Tooltip>
     );
 }
