@@ -138,6 +138,7 @@ export function MergeBoardCell({ item, cellIndex }: Props) {
                 <ItemIcon
                     className={`merge-board-cell__item ${itemConditionalClasses}`}
                     itemType={item.itemType}
+                    tooltip={false}
                 />
             )}
             {item?.isInsideBubble && (
