@@ -13,7 +13,7 @@
   "scripts": {
     "start": "parcel --no-cache",
     "build": "parcel build --no-cache",
-    "build-demo": "rm -rf ./demo && parcel build --no-cache --dist-dir ./demo",
+    "build-demo": "rm -rf ./docs && parcel build --no-cache --dist-dir ./docs",
     "test": "jest"
   },
   "author": "matyt@mattahj.co.uk",
