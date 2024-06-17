@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import { FormControlLabel, Select, MenuItem } from "@mui/material";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
 import {
@@ -34,29 +34,20 @@ export function ItemChainSelect({ item }: ItemChainSelectProps) {
     );
 
     return (
-        <FormControlLabel
-            label="Item Chain"
-            labelPlacement="start"
-            sx={{
-                justifyContent: "flex-end",
-                margin: 0,
-            }}
-            control={
-                <Select
-                    value={item.chainId}
-                    onChange={handleItemChainChange}
-                    size="small"
-                    sx={{
-                        marginLeft: 1,
-                    }}
-                >
-                    {mergeBoardState?.availableItemChains.map((chainId) => (
-                        <MenuItem value={chainId} key={chainId}>
-                            {chainId}
-                        </MenuItem>
-                    ))}
-                </Select>
-            }
-        />
+        <FormControl>
+            <InputLabel id="item-chain-edit">Item Chain</InputLabel>
+            <Select
+                labelId="item-chain-edit"
+                label="Item Chain"
+                value={item.chainId}
+                onChange={handleItemChainChange}
+            >
+                {mergeBoardState?.availableItemChains.map((chainId) => (
+                    <MenuItem value={chainId} key={chainId}>
+                        {chainId}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 }

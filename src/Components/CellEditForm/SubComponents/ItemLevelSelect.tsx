@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 
-import { FormControlLabel, Slider } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
 import {
@@ -14,7 +14,7 @@ import { useRequiredContext } from "Utils/useRequiredContext";
 interface ItemLevelSliderProps {
     item: Item;
 }
-export function ItemLevelSlider({ item }: ItemLevelSliderProps) {
+export function ItemLevelSelect({ item }: ItemLevelSliderProps) {
     const mergeBoardState = useRequiredContext(MergeBoardContext);
     const mergeBoardDispatch = useRequiredContext(MergeBoardDispatch);
     const inspectorState = useRequiredContext(MergeBoardInspectorContext);
@@ -36,25 +36,30 @@ export function ItemLevelSlider({ item }: ItemLevelSliderProps) {
         [mergeBoardDispatch, inspectorState]
     );
 
+    const levelOptions = useMemo(() => {
+        const levels = [];
+        const { min, max } = mergeBoardState.itemChainLevelBounds[item.chainId];
+        for (let lvl = min; lvl <= max; ++lvl) {
+            levels.push(lvl);
+        }
+        return levels;
+    }, [item]);
+
     return (
-        <FormControlLabel
-            label={`Level ${item.itemLevel}`}
-            labelPlacement="top"
-            onChange={handleItemLevelChange}
-            sx={{
-                alignItems: "flex-start",
-                margin: 0,
-            }}
-            control={
-                <Slider
-                    marks
-                    valueLabelDisplay="auto"
-                    min={mergeBoardState.itemChainLevelBounds[item.chainId].min}
-                    max={mergeBoardState.itemChainLevelBounds[item.chainId].max}
-                    step={1}
-                    value={item.itemLevel}
-                />
-            }
-        />
+        <FormControl>
+            <InputLabel id="item-level-edit">Item Level</InputLabel>
+            <Select
+                labelId="item-level-edit"
+                label="Item Level"
+                onChange={handleItemLevelChange}
+                value={item.itemLevel}
+            >
+                {levelOptions.map((lvl) => (
+                    <MenuItem value={lvl} key={lvl}>
+                        {lvl}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 }

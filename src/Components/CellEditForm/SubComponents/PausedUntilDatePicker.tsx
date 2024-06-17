@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 
 import { formatISO } from "date-fns";
 
-import { FormControlLabel } from "@mui/material";
+import { FormControl } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import { MergeBoardInspectorContext } from "State/MergeBoardInspectorReducer";
@@ -35,29 +35,22 @@ export function PausedUntilDatePicker({ item }: PausedUntilDatePickerProps) {
     );
 
     return (
-        <FormControlLabel
-            label="Paused Until"
-            labelPlacement="top"
-            sx={{
-                alignItems: "flex-start",
-                margin: 0,
-            }}
-            control={
-                <DateTimePicker
-                    slotProps={{
-                        actionBar: {
-                            actions: ["accept", "cancel", "clear"],
-                        },
-                        field: { clearable: true },
-                    }}
-                    value={
-                        item.pausedUntil !== null
-                            ? new Date(item.pausedUntil)
-                            : null
-                    }
-                    onChange={handlePauseTimeChange}
-                />
-            }
-        />
+        <FormControl>
+            <DateTimePicker
+                label="Paused Until"
+                slotProps={{
+                    actionBar: {
+                        actions: ["accept", "cancel", "clear"],
+                    },
+                    field: { clearable: true },
+                }}
+                value={
+                    item.pausedUntil !== null
+                        ? new Date(item.pausedUntil)
+                        : null
+                }
+                onChange={handlePauseTimeChange}
+            />
+        </FormControl>
     );
 }

@@ -13,7 +13,7 @@ import { useRequiredContext } from "Utils/useRequiredContext";
 
 // private components only intended to be used in the cell editor are organised in to the SubComponents folder
 import { ItemChainSelect } from "./SubComponents/ItemChainSelect";
-import { ItemLevelSlider } from "./SubComponents/ItemLevelSlider";
+import { ItemLevelSelect } from "./SubComponents/ItemLevelSelect";
 import { InBubbleCheckbox } from "./SubComponents/InBubbleCheckbox";
 import { HiddenCheckbox } from "./SubComponents/HiddenCheckbox";
 import { PausedUntilDatePicker } from "./SubComponents/PausedUntilDatePicker";
@@ -59,8 +59,10 @@ export function CellEditForm({ item }: CellEditFormProps) {
                 <Divider sx={{ marginY: 1 }} />
                 <FormGroup sx={{ padding: 1, gap: 2 }}>
                     <ItemChainSelect item={item} />
-                    {showLevelSlider && <ItemLevelSlider item={item} />}
+                    {showLevelSlider && <ItemLevelSelect item={item} />}
                     <PausedUntilDatePicker item={item} />
+                </FormGroup>
+                <FormGroup sx={{ padding: 1, gap: 0 }}>
                     <InBubbleCheckbox item={item} />
                     <HiddenCheckbox item={item} />
                 </FormGroup>

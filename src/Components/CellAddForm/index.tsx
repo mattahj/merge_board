@@ -14,7 +14,7 @@ import { deriveItemType } from "State/TestHelpers";
 import { Visibility } from "State/Types";
 import { CellAddFormHeading } from "./SubComponents/CellAddFormHeading";
 import { CellAddFormPreview } from "./SubComponents/CellAddFormPreview";
-import { CellAddFormLevelSlider } from "./SubComponents/CellAddFormLevelSlider";
+import { CellAddFormLevelSelect } from "./SubComponents/CellAddFormLevelSelect";
 
 import "./CellAddForm.scss";
 
@@ -73,7 +73,7 @@ export function CellAddForm() {
                 <Divider sx={{ marginY: 1 }} />
                 <FormGroup sx={{ padding: 1, gap: 2 }}>
                     <CellAddFormPreview derivedItemType={derivedItemType} />
-                    <CellAddFormLevelSlider
+                    <CellAddFormLevelSelect
                         handlePendingItemLevelChange={
                             handlePendingItemLevelChange
                         }
